@@ -1,45 +1,77 @@
 package codigo.models;
 
+
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "usuarios")
+
 public class Usuario {
-    protected String identificacion,correo, clave;
-    protected boolean activo;
 
-    public Usuario(String identificacion, String correo, String clave,boolean activo) {
-        this.identificacion = identificacion;
-        this.correo = correo;
-        this.clave = clave;
-        this.activo = activo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
+
+    private boolean aprobado = false;
+
+    public Usuario() {
     }
 
-    public String getClave() {
-        return clave;
+    public Usuario(Long id, String email, String password, Rol rol, boolean aprobado) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.rol = rol;
+        this.aprobado = aprobado;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public Long getId() {
+        return id;
     }
 
-    public String getCorreo() {
-        return correo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public String getEmail() {
+        return email;
     }
 
-    public String getIdentificacion() {
-        return identificacion;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setIdentificacion(String identificacion) {
-        this.identificacion = identificacion;
+    public String getPassword() {
+        return password;
     }
 
-    public boolean isActivo() {
-        return activo;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public boolean isAprobado() {
+        return aprobado;
+    }
+
+    public void setAprobado(boolean aprobado) {
+        this.aprobado = aprobado;
     }
 }

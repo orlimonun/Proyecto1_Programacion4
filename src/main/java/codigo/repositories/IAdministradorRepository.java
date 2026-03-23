@@ -12,7 +12,7 @@ public interface IAdministradorRepository {
 
     List<Administrador> findAllActive();
 
-    Optional<Administrador> findById(Long id);
+    Optional<Administrador> findById(String id);
 
     List<Administrador> findByNameContaining(String name);
 

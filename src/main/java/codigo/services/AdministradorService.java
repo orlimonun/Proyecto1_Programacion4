@@ -31,7 +31,7 @@ public class AdministradorService {
         return repository.findAllActive().stream().map(this::toResponse).toList();
     }
 
-    public AdministradorResponse getAdministradorById(Long id) {
+    public AdministradorResponse getAdministradorById(String id) {
         log.info("Fetching administrador with id {} from the database", id);
 
         Administrador administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
@@ -39,7 +39,7 @@ public class AdministradorService {
         return toResponse(administrador);
     }
 
-    public Administrador getDomainAdministradorById(Long id) {
+    public Administrador getDomainAdministradorById(String id) {
         log.info("Fetching administrador with id {} from the database", id);
 
         return repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
@@ -55,40 +55,40 @@ public class AdministradorService {
         return toResponse(saved);
     }
 
-    public AdministradorResponse updateAdministrador(Long id, UpdateAdministradorRequest request) {
+    public AdministradorResponse updateAdministrador(String id, UpdateAdministradorRequest request) {
         log.info("Updating administrador with id {} in the database", id);
 
         Administrador administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
 
-        administrador.setCorreo(request.getCorreo());
-        administrador.setClave(request.getClave());
+        administrador.setEmail(request.getCorreo());
+        administrador.setPassword(request.getClave());
 
         Administrador updated = repository.update(administrador);
 
         return toResponse(updated);
     }
 
-    public void deleteLogical(Long id) {
+    public void deleteLogical(String id) {
         log.info("Logically deleting administrador with id {} in the database", id);
 
         Administrador administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
 
-        administrador.setActivo(false);
+        administrador.setAprobado(false);
 
         repository.update(administrador);
     }
 
-    public UpdateAdministradorRequest buildUpdateRequest(Long id) {
+    public UpdateAdministradorRequest buildUpdateRequest(String id) {
         log.info("Building update request for administrador with id {} from the database", id);
 
         Administrador administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
 
-        return new UpdateAdministradorRequest(administrador.getIdentificacion(), administrador.getCorreo(), administrador.getClave());
+        return new UpdateAdministradorRequest(administrador.getId().toString(), administrador.getEmail(), administrador.getPassword());
     }
 
     private AdministradorResponse toResponse(Administrador administrador) {
 
-        return new AdministradorResponse(administrador.getIdentificacion(), administrador.getCorreo(), administrador.getClave(),administrador.isActivo());
+        return new AdministradorResponse(administrador.getId().toString(), administrador.getEmail(), administrador.getPassword(),administrador.isAprobado());
     }    
     
     

@@ -3,8 +3,8 @@ package codigo.models;
 public class Oferente extends Usuario{
     private String  nombre, primerApellido, nacionalidad, telefono,residencia;
 
-    public Oferente(String identificacion, String correo, String clave, boolean activo, String nombre, String primerApellido, String nacionalidad, String telefono, String residencia) {
-        super(identificacion, correo, clave,activo);
+    public Oferente(Long id, String email, String password, Rol rol, boolean aprobado, String nombre, String primerApellido, String nacionalidad, String telefono, String residencia) {
+        super(id, email, password, rol, aprobado);
         this.nombre = nombre;
         this.primerApellido = primerApellido;
         this.nacionalidad = nacionalidad;
