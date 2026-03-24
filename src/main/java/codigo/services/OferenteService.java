@@ -20,24 +20,24 @@ import java.util.List;
 public class OferenteService {
 
     private static final Logger log = LoggerFactory.getLogger(OferenteService.class);
-    private final IOferenteRepository repository;
+    private final IOferenteService service;
     private final AppProperties appProperties;
 
-    public OferenteService(IOferenteRepository repository, AppProperties appProperties) {
-        this.repository = repository;
+    public OferenteService(IOferenteService service, AppProperties appProperties) {
+        this.service = service;
         this.appProperties = appProperties;
     }
 
     public List<OferenteResponse> getAllOferentes() {
         log.info("Fetching all oferentes from the database");
 
-        return repository.findAllActive().stream().map(this::toResponse).toList();
+        return service.findAllAprovados().stream().map(this::toResponse).toList();
     }
 
     public OferenteResponse getOferenteById(Long id) {
         log.info("Fetching oferente with id {} from the database", id);
 
-        Oferente oferente = repository.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
+        Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
 
         return toResponse(oferente);
     }
@@ -45,16 +45,16 @@ public class OferenteService {
     public Oferente getDomainOferenteById(Long id) {
         log.info("Fetching oferente with id {} from the database", id);
 
-        return repository.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
+        return service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
     }
 
     public OferenteResponse createOferente(CreateOferenteRequest request) {
         log.info("Creating new oferente from the database");
 
-        Oferente oferente = new Oferente(request.getIdentificacion(), request.getCorreo(), request.getClave(),true, request.getNombre(),
+        Oferente oferente = new Oferente(request.getIdentificacion(), request.getCorreo(), request.getClave(),request.,true, request.getNombre(),
                 request.getPrimerApellido(), request.getNacionalidad(),request.getTelefono(), request.getResidencia());
 
-        Oferente saved = repository.save(oferente);
+        Oferente saved = service.save(oferente);
 
         return toResponse(saved);
     }
@@ -62,17 +62,17 @@ public class OferenteService {
     public OferenteResponse updateOferente(Long id, UpdateOferenteRequest request) {
         log.info("Updating oferente with id {} in the database", id);
 
-        Oferente oferente = repository.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
+        Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
 
-        oferente.setCorreo(request.getCorreo());
-        oferente.setClave(request.getClave());
+        oferente.setEmail(request.getCorreo());
+        oferente.setPassword(request.getClave());
         oferente.setNombre(request.getNombre());
         oferente.setPrimerApellido(request.getPrimerApellido());
         oferente.setNacionalidad(request.getNacionalidad());
         oferente.setTelefono(request.getTelefono());
         oferente.setResidencia(request.getResidencia());
 
-        Oferente updated = repository.update(oferente);
+        Oferente updated = service.update(oferente);
 
         return toResponse(updated);
     }
@@ -80,19 +80,19 @@ public class OferenteService {
     public void deleteLogical(Long id) {
         log.info("Logically deleting oferente with id {} in the database", id);
 
-        Oferente oferente = repository.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
+        Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
 
         oferente.setActivo(false);
 
-        repository.update(oferente);
+        service.update(oferente);
     }
 
     public UpdateOferenteRequest buildUpdateRequest(Long id) {
         log.info("Building update request for oferente with id {} from the database", id);
 
-        Oferente oferente = repository.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
+        Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
 
-        return new UpdateOferenteRequest(oferente.getIdentificacion(), oferente.getCorreo(),oferente.getClave(),
+        return new UpdateOferenteRequest(oferente.getId(), oferente.getEmail(),oferente.getPassword(),
                 oferente.getNombre(),oferente.getPrimerApellido(), oferente.getNacionalidad(), oferente.getTelefono(), oferente.getResidencia());
     }
 

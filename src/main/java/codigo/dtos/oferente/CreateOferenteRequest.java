@@ -36,6 +36,8 @@ public class CreateOferenteRequest {
 
 
 
+
+
     public CreateOferenteRequest() {
     }
 

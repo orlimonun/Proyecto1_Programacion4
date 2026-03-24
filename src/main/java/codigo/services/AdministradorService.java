@@ -1,5 +1,5 @@
 package codigo.services;
-
+/*
 import codigo.dtos.administrador.CreateAdministradorRequest;
 import codigo.dtos.administrador.AdministradorResponse;
 import codigo.dtos.administrador.UpdateAdministradorRequest;
@@ -92,4 +92,4 @@ public class AdministradorService {
     }    
     
     
-}
+}*/

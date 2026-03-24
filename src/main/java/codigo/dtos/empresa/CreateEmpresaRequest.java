@@ -1,5 +1,6 @@
 package codigo.dtos.empresa;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -11,6 +12,7 @@ public class CreateEmpresaRequest {
 
     @NotBlank(message = "An email is required")
     @Size(min = 10, max = 100, message = "Product name must be between 2 and 100 characters")
+    @Email(message = "correo invalido")
     private String correo ;
 
     @NotBlank(message = "Password is required")

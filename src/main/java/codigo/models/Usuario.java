@@ -3,20 +3,22 @@ package codigo.models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name = "usuarios")
-
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
+    @Email(message = "Correo invalido")
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)

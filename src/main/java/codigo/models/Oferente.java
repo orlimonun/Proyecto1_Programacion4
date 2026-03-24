@@ -1,12 +1,38 @@
 package codigo.models;
 
-public class Oferente extends Usuario{
-    private String  nombre, primerApellido, nacionalidad, telefono,residencia;
 
-    public Oferente(Long id, String email, String password, Rol rol, boolean aprobado, String nombre, String primerApellido, String nacionalidad, String telefono, String residencia) {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name ="oferentes")
+@PrimaryKeyJoinColumn(name = "id")
+public class Oferente extends Usuario{
+
+    @Column(nullable = false, length = 80, unique = true)
+    private String  nombre;
+
+    @Column(nullable = false, length = 80, unique = true)
+    String apellido;
+
+    @Column(nullable = false, length = 80, unique = true)
+    String nacionalidad;
+
+    @Column(nullable = false, length = 80)
+    String telefono;
+
+    @Column(nullable = false, length = 80, unique = true)
+    String residencia;
+
+    public Oferente() {}
+
+
+    public Oferente(Long id, String email, String password, Rol rol, boolean aprobado, String nombre, String apellido, String nacionalidad, String telefono, String residencia) {
         super(id, email, password, rol, aprobado);
         this.nombre = nombre;
-        this.primerApellido = primerApellido;
+        this.apellido = apellido;
         this.nacionalidad = nacionalidad;
         this.telefono = telefono;
         this.residencia = residencia;
@@ -21,11 +47,11 @@ public class Oferente extends Usuario{
     }
 
     public String getPrimerApellido() {
-        return primerApellido;
+        return apellido;
     }
 
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
+    public void setPrimerApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public String getNacionalidad() {
@@ -51,4 +77,6 @@ public class Oferente extends Usuario{
     public void setResidencia(String residencia) {
         this.residencia = residencia;
     }
+
+
 }

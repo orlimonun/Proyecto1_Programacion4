@@ -1,22 +1,17 @@
 package codigo.repositories;
+ import codigo.models.Empresa;
  import codigo.models.Oferente;
-import java.util.List;
+ import org.springframework.data.jpa.repository.JpaRepository;
+
+ import java.util.List;
 import java.util.Optional;
 
 
 
-public interface IOferenteRepository {
+public interface IOferenteRepository extends JpaRepository<Oferente,Long> {
 
-    List<Oferente> findAll();
+    List<Oferente> findByAprovadoTrue();
 
-    List<Oferente> findAllActive();
-
-    Optional<Oferente> findById(Long id);
-
-    List<Oferente> findByNameContaining(String name);
-
-    Oferente save(Oferente oferente);
-
-    Oferente update(Oferente oferente);
+    Optional <Oferente>findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
     
 }

@@ -1,15 +1,39 @@
 package codigo.models;
 
-public class Empresa extends Usuario {
-    // (nombre, localización, correo electrónico, teléfono, descripción)
-    private String nombre,localizacion, telefono, descripcion;
 
-    public Empresa(String identificacion, String correo, String clave,boolean activo, String descripcion, String telefono, String localizacion, String nombre) {
-        super(identificacion, correo, clave,activo);
-        this.descripcion = descripcion;
-        this.telefono = telefono;
-        this.localizacion = localizacion;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "empresas")
+@PrimaryKeyJoinColumn(name = "id")
+public class Empresa extends Usuario {
+    // (nombre, localización, teléfono, descripción)
+
+    @Column(nullable = false, length = 80, unique = true)
+    private String nombre;
+
+    @Column(nullable = false, length = 80)
+    private String localizacion;
+
+    @Column(nullable = false, length = 80)
+    private String telefono;
+
+    @Column(nullable = false, length = 80)
+    private String descripcion;
+
+    public Empresa(){
+
+    }
+
+    public Empresa(Long id, String email, String password, Rol rol, boolean aprobado, String nombre, String localizacion, String telefono, String descripcion) {
+        super(id, email, password, rol, aprobado);
         this.nombre = nombre;
+        this.localizacion = localizacion;
+        this.telefono = telefono;
+        this.descripcion = descripcion;
     }
 
     public String getNombre() {
