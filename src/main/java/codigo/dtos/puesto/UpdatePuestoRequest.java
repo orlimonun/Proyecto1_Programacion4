@@ -1,7 +1,5 @@
 package codigo.dtos.puesto;
 
-
-
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
