@@ -7,6 +7,14 @@ import jakarta.validation.constraints.NotNull;
 
 public class HabilidadNivel {
 
+    public HabilidadNivel(Long habilidadId, int nivel) {
+        this.habilidadId = habilidadId;
+        this.nivel = nivel;
+    }
+
+    public HabilidadNivel() {
+    }
+
     @NotNull(message = "El id de la habilidad es obligatorio")
     private Long habilidadId;
 

@@ -18,6 +18,9 @@ public class CreatePuestoRequest {
     @NotEmpty(message = "Debe incluir al menos una habilidad")
     private List<HabilidadNivel> habilidades;
 
+    @NotNull(message = "Se debe relacionar con una empresa")
+    private Long empresaId;
+
     public CreatePuestoRequest() {}
 
     public String getDescripcion() {
@@ -50,5 +53,13 @@ public class CreatePuestoRequest {
 
     public void setHabilidades(List<HabilidadNivel> habilidades) {
         this.habilidades = habilidades;
+    }
+
+    public Long getEmpresaId() {
+        return empresaId;
+    }
+
+    public void setEmpresaId(Long empresaId) {
+        this.empresaId = empresaId;
     }
 }

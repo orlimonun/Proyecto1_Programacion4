@@ -23,4 +23,35 @@ public class PuestoHabilidad {
     @Size(min = 1 ,max = 5)
     private int nivelRequerido;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Puesto getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(Puesto puesto) {
+        this.puesto = puesto;
+    }
+
+    public Habilidad getHabilidad() {
+        return habilidad;
+    }
+
+    public void setHabilidad(Habilidad habilidad) {
+        this.habilidad = habilidad;
+    }
+
+    public int getNivelRequerido() {
+        return nivelRequerido;
+    }
+
+    public void setNivelRequerido(int nivelRequerido) {
+        this.nivelRequerido = nivelRequerido;
+    }
 }
