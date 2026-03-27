@@ -1,5 +1,5 @@
 package codigo.repositories;
-/*
+
 import codigo.models.Administrador;
 import java.util.List;
 import java.util.Optional;

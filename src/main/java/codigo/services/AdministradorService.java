@@ -1,5 +1,5 @@
 package codigo.services;
-/*
+
 import codigo.dtos.administrador.CreateAdministradorRequest;
 import codigo.dtos.administrador.AdministradorResponse;
 import codigo.dtos.administrador.UpdateAdministradorRequest;
@@ -8,6 +8,7 @@ import codigo.models.Administrador;
 import codigo.repositories.IAdministradorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import codigo.config.AppProperties;
 import java.util.List;
@@ -19,6 +20,7 @@ public class AdministradorService {
     private static final Logger log = LoggerFactory.getLogger(AdministradorService.class);
     private final IAdministradorRepository repository;
     private final AppProperties appProperties;
+
 
     public AdministradorService(IAdministradorRepository repository, AppProperties appProperties) {
         this.repository = repository;
@@ -89,7 +91,8 @@ public class AdministradorService {
     private AdministradorResponse toResponse(Administrador administrador) {
 
         return new AdministradorResponse(administrador.getId().toString(), administrador.getEmail(), administrador.getPassword(),administrador.isAprobado());
-    }    
+    }
+    public void aprobarEmpresa(Long id){}
+    public void aprobarOferente(Long id){}
     
-    
-}*/
+}

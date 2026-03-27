@@ -10,6 +10,7 @@ public class HomeController {
     public String home() {
         return "Publico/DashBoard";
     }
-
+//implementar
+    @GetMapping("/BuscarPuesto")
 
 }

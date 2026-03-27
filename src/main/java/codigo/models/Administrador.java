@@ -1,6 +1,6 @@
 package codigo.models;
 
-/*
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 //borrar lo de Administrador

@@ -4,6 +4,7 @@ import codigo.services.EmpresaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -28,6 +29,10 @@ public class EmpresaController {
     @GetMapping("/{id}")
     public String detail(){
 
-
-
     }
+    //implementar
+    @GetMapping("/buscar-candidatos/{puestoId}")
+
+    @GetMapping("/ver-candidato/{id}")
+
+    @PostMapping("/desactivar-puesto/{id}")
