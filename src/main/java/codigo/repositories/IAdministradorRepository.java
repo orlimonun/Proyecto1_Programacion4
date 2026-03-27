@@ -19,3 +19,4 @@ public interface IAdministradorRepository {
     Administrador update(Administrador administrador);
     
 }
+*/

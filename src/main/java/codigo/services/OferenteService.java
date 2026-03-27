@@ -35,7 +35,7 @@ public class OferenteService {
     }
 
     public OferenteResponse getOferenteById(Long id) {
-        log.info("Fetching oferente with id {} from the database", id);
+        log.info("Fetching Oferente with id {} from the database", id);
 
         Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
 
@@ -43,13 +43,13 @@ public class OferenteService {
     }
 
     public Oferente getDomainOferenteById(Long id) {
-        log.info("Fetching oferente with id {} from the database", id);
+        log.info("Fetching Oferente with id {} from the database", id);
 
         return service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
     }
 
     public OferenteResponse createOferente(CreateOferenteRequest request) {
-        log.info("Creating new oferente from the database");
+        log.info("Creating new Oferente from the database");
 
         Oferente oferente = new Oferente(request.getIdentificacion(), request.getCorreo(), request.getClave(),request.,true, request.getNombre(),
                 request.getPrimerApellido(), request.getNacionalidad(),request.getTelefono(), request.getResidencia());
@@ -60,7 +60,7 @@ public class OferenteService {
     }
 
     public OferenteResponse updateOferente(Long id, UpdateOferenteRequest request) {
-        log.info("Updating oferente with id {} in the database", id);
+        log.info("Updating Oferente with id {} in the database", id);
 
         Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
 
@@ -78,7 +78,7 @@ public class OferenteService {
     }
 
     public void deleteLogical(Long id) {
-        log.info("Logically deleting oferente with id {} in the database", id);
+        log.info("Logically deleting Oferente with id {} in the database", id);
 
         Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
 
@@ -88,7 +88,7 @@ public class OferenteService {
     }
 
     public UpdateOferenteRequest buildUpdateRequest(Long id) {
-        log.info("Building update request for oferente with id {} from the database", id);
+        log.info("Building update request for Oferente with id {} from the database", id);
 
         Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Inicio')}"></head>
+<body>
+<div th:replace="~{fragmentsPublic/navbar :: navbar}"></div>
+
+<div class="page-header">
+    <h1>Bolsa de Empleo</h1>
+    <p>Últimos 5 puestos públicos</p>
+</div>
+<main class="container">
+    <section class="job-grid">
+
+
+        <div class="job-card" th:each="puesto : ${puestos}">
+
+            <h3 th:text="${puesto.empresa}">Empresa</h3>
+
+            <p th:text="${puesto.descripcion}">Descripción</p>
+
+            <p class="salary">
+                ₡ <span th:text="${puesto.salario}">0.00</span>
+            </p>
+
+            <button class="btn btn-primary btn-sm">Ver detalle</button>
+
+
+            <div class="job-detail">
+                <strong th:text="${puesto.titulo}">Título</strong>
+
+                <ul>
+                    <li th:each="c : ${puesto.caracteristicas}">
+                        <span th:text="${c.nombre}">Skill</span>
+                        (<span th:text="${c.nivel}">nivel</span>)
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </section>
+</main>
+<div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+
+</body>
+
+</html>

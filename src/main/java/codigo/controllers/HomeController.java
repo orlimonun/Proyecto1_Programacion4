@@ -1,6 +1,7 @@
 package codigo.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +19,9 @@ public class HomeController {
 
     @GetMapping("/admin")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String admin() {
-        return "Admin";
+    public String admin(Model model) {
+        model.addAttribute("title", "Admin");
+        return "admin/dashboard";
     }
 
 }
