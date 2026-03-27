@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Publico/head :: head('Access denied')}"></head>
+<body>
+<main class="container">
+    <section class="card">
+        <h1>Acceso denegado</h1>
+        <p>No tiene acceso a esta sección.</p>
+        <a class="btn btn-secondary" th:href="@{/login}">Volver al inicio</a>
+    </section>
+</main>
+</body>
+</html>
