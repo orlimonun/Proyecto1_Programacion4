@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+<nav th:fragment="navbar" class="navbar">
+    <div class="container navbar-inner">
+        <div class="brand-container">
+            <img th:src="@{css/images/busqueda-de-trabajo.png}" alt="logo">
+            <a class="brand" th:href="@{/}">BolsaEmpleo</a>
+        </div>
+
+        <div class="nav-links">
+            <a th:href="@{/Empresa}">Dashboard</a>
+            <a th:href="@{/Empresa/MisPuestos}">Mis puestos</a>
+            <a th:href="@{/Empresa/PublicarPuesto}">Publicar puesto</a>
+
+        </div>
+
+
+        <div th:if="${usuario != null}">
+            Usuario: <strong th:text="${usuario}"></strong>
+            <button class="btn btn-danger btn-sm">Salir</button>
+        </div>
+
+        <div th:if="${usuario == null}">
+            <a class="btn btn-login" th:href="@{/login}">Login</a>
+        </div>
+
+        <!--        <span sec:authorize="isAuthenticated()">-->
+        <!--                Usuario: <strong sec:authentication="name">user</strong>-->
+        <!--            </span>-->
+
+        <!--        <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">-->
+        <!--            <button type="submit" class="btn btn-danger btn-sm">Salir</button>-->
+        <!--        </form>-->
+
+        <!--        <div class="nav-user">-->
+        <!--            <a class="btn btn-login" th:href="@{/login}">Login</a>-->
+        <!--        </div>-->
+
+    </div>
+</nav>
+</body>
+</html>

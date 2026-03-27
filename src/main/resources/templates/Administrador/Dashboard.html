@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Admin - Dashboard')}"></head>
 <body>
+<div th:replace="~{fragmentsAdmin/navbar :: navbar}"></div>
 
+<div class="page-header">
+    <h1>Administrador</h1>
+    <p>Aprobaciones, catálogo de características y reportes</p>
+</div>
+<main class="admin-actions">
+    <a class="btn btn-primary btn-sm" th:href="@{/Administrador/EmpresasPendientes}">Empresas pendientes</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/Administrador/OferentesPendientes}">Oferentes pendientes</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/Administrador/Caracteristicas}">Características</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/Administrador/Reportes}">Reportes</a>
+</main>
+
+<footer>
+    <div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+</footer>
 </body>
 </html>

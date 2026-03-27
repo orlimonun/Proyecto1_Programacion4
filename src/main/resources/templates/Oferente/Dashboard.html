@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Oferente - Dashboard')}"></head>
 <body>
+<div th:replace="~{fragmentsOferente/navbar :: navbar}"></div>
 
+<div class="page-header">
+    <h1>Oferente - Dashboard</h1>
+    <p>Administra tus habilidades y CV</p>
+</div>
+<main class="admin-actions">
+    <a class="btn btn-primary btn-sm" th:href="@{/Oferente/MisHabilidades}">Mis habilidades</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/Oferente/CV}">Mi CV</a>
+
+</main>
+
+<footer>
+    <div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+</footer>
 </body>
 </html>
