@@ -2,13 +2,14 @@ package codigo.controllers;
 
 
 
+import codigo.models.Usuario;
+import codigo.services.ArchivoService;
 import codigo.services.OferenteService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/Empresa")
@@ -16,15 +17,22 @@ public class OferenteController {
 
     private final OferenteService servicio;
 
+    private final ArchivoService archivoService;
+
+    public OferenteController(OferenteService servicio, ArchivoService archivoService) {
+        this.servicio = servicio;
+        this.archivoService = archivoService;
+    }
+
     @GetMapping
-    public String list(Model model){
+    public String Oferente(Model model){
         model.addAttribute("pageTitle", "Pagina para empresa");
         return "Oferente/Dashboard";
     }
 
     @GetMapping
     public String list(Model model){
-        model.addAttribute("Mis habilidades",service.findAll());
+        model.addAttribute("Mis habilidades",OferenteService.findAll());
         model.addAttribute("pageTitle","Mis Habilidades");
 
         return "Oferente/MisHabilidades";
@@ -34,6 +42,18 @@ public class OferenteController {
 
 
 
+    }
+
+    @PostMapping("/Oferente/SubirCC")
+    public String subirCV(
+            @RequestParam("archivo") MultipartFile archivo,
+            @AuthenticationPrincipal Usuario user) {
+
+        Long oferenteId = user.getId();
+
+        archivoService.guardarCV(archivo, oferenteId);
+
+        return "redirect:/oferente/dashboard";
     }
     //implementar
     @PostMapping("/subirCV")

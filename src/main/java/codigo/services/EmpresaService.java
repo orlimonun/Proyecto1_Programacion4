@@ -186,21 +186,28 @@ public class EmpresaService {
     }
 
     private EmpresaResponse mapToResponse(Empresa e) {
-        EmpresaResponse dto = new EmpresaResponse();
-        dto.setId(e.getId());
-        dto.setNombre(e.getNombre());
-        dto.setCorreo(e.getCorreo());
-        dto.setDescripcion(e.getDescripcion());
-        return dto;
+
+        return new EmpresaResponse(
+                e.getId(),
+                e.getEmail(),
+                e.isAprobado(),
+                e.getDescripcion(),
+                e.getTelefono(),
+                e.getLocalizacion(),
+                e.getNombre()
+        );
     }
 
     private PuestoResponse mapPuestoToResponse(Puesto p) {
-        PuestoResponse dto = new PuestoResponse();
-        dto.setId(p.getId());
-        dto.setDescripcion(p.getDescripcion());
-        dto.setSalario(p.getSalario());
-        dto.setPublico(p.isPublico());
-        dto.setActivo(p.isActivo());
-        return dto;
+
+        return new PuestoResponse(
+                p.getId(),
+                p.getDescripcion(),
+                p.getSalario(),
+                p.isPublico(),
+                p.isActivo(),
+                p.getEmpresa().getNombre(),
+                p.get
+        );
     }
 }

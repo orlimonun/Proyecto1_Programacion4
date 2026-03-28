@@ -23,5 +23,6 @@ public class HomeController {
         model.addAttribute("title", "Admin");
         return "admin/dashboard";
     }
-
+//implementar
+    @GetMapping("/BuscarPuesto")
 }

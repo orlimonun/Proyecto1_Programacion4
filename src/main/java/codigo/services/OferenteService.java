@@ -98,7 +98,7 @@ public class OferenteService {
 
     private OferenteResponse toResponse(Oferente oferente) {
 
-        return new OferenteResponse(oferente.getIdentificacion(), oferente.getCorreo(),oferente.getClave(), oferente.isActivo(),
+        return new OferenteResponse(oferente.getId(), oferente.getEmail(),oferente.getPassword(), oferente.isAprobado(),
                 oferente.getNombre(),oferente.getPrimerApellido(), oferente.getNacionalidad(), oferente.getTelefono(), oferente.getResidencia());
     }
 

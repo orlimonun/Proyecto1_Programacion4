@@ -1,7 +1,7 @@
 package codigo.dtos.empresa;
 
 public record EmpresaResponse(
-        String identificacion,
+        Long identificacion,
         String correo,
         boolean activo,
         String descripcion,
