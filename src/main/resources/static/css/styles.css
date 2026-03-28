@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
 }
@@ -7,13 +8,33 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f5f7fb;
     color: #1f2937;
+    display: flex;
+    flex-direction: column;
+
+}
+
+html, body {
+    height: 100%;
 }
 
 .container {
-    width: min(1100px, 92%);
-    margin: 2rem auto;
+    width: min(1000px, 90%);
+    margin: 0rem auto;
 }
 
+.admin-actions {
+    padding-left: 4rem;
+    width: min(1000px, 90%);
+}
+main {
+    flex: 1;
+}
+.page-header {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 4rem;
+}
+/*---------------------------------------------Layout----------------------------------*/
 .navbar {
     background: #111827;
     color: white;
@@ -21,6 +42,8 @@ body {
 }
 
 .navbar-inner {
+    width: min(1000px, 90%);
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,29 +56,133 @@ body {
     font-weight: bold;
 }
 
-.nav-links,
-.nav-user,
-.actions {
+.nav-links{
     display: flex;
     gap: 0.75rem;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.nav-links a,
-.nav-user span {
-    color: white;
+.nav-links a {
+    color: #d1d5db;
     text-decoration: none;
 }
 
-.page-header {
+.nav-links a:hover {
+    color: white;
+}
+
+.brand-container img {
+    height: 40px;
+}
+.brand-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 0.4rem;
+}
+.page-header {
     margin-bottom: 1.5rem;
 }
 
+.page-header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+}
+
+.page-header p {
+    margin: 0.3rem 0 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.footer {
+    background: #111827;
+    color: #d1d5db;
+    padding: 0.8rem 0;
+    margin-top: 2rem;
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    padding: 0 1.5rem;
+}
+.footer-inner div:first-child {
+    flex: 1;
+    text-align: left;
+}
+
+.footer-inner div:last-child {
+    flex: 1;
+    text-align: right;
+}
+
+/*------------------------------------------------------Buscar Puestos----------------*/
+.filter-box {
+    background: #f3f4f6;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+
+    border: 1px solid #d1d5db;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.filter-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.filter-group {
+    font-size: 14px;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.results h3 {
+    margin-bottom: 15px;
+}
+
+.result-card {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+
+    width: 300px;
+}
+
+.result-card h4 {
+    margin: 5px 0;
+}
+
+.category {
+    font-size: 12px;
+    color: #6b7280;
+}
+.parent {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.children {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+/*/////////////////////////////////////////////*/
 .card {
     background: white;
     border: 1px solid #dbe3ee;
@@ -100,11 +227,14 @@ body {
     resize: vertical;
 }
 
-.error {
-    color: #b91c1c;
-    font-size: 0.9rem;
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
-
+/*-------------------------------------------------Botones-------------------------*/
 .btn {
     display: inline-block;
     padding: 0.65rem 0.9rem;
@@ -125,11 +255,25 @@ body {
     color: white;
 }
 
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
 .btn-secondary {
     background: #e5e7eb;
     color: #111827;
 }
 
+.btn-secondary:hover {
+    background: #d1d5db;
+}
+
+.btn-login{
+    color: white;
+}
+.btn-login:hover{
+    color: antiquewhite;
+}
 .btn-warning {
     background: #f59e0b;
     color: white;
@@ -140,9 +284,35 @@ body {
     color: white;
 }
 
-.inline-form {
-    display: inline;
+.alert {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
 }
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.alert-success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/*-------------------------------------------Login--------------------------------*/
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+}
+/*----------------------------------------Mostrar puestos públicos-----------------*/
 
 .badge {
     display: inline-block;
@@ -153,11 +323,6 @@ body {
     color: #1e40af;
     margin-right: 4px;
     margin-bottom: 4px;
-}
-
-.detail-grid {
-    display: grid;
-    gap: 0.8rem;
 }
 
 .search-form {
@@ -185,18 +350,75 @@ body {
     gap: 0.5rem;
 }
 
-.alert {
-    padding: 0.8rem 1rem;
+.job-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+}
+
+
+.job-card {
+    background: #eaf7ed;
+    border: 1px solid #cce3d4;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.job-card:hover {
+    transform: translateY(-2px);
+}
+
+.job-card h3 {
+    margin-top: 0;
+}
+
+
+.salary {
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+/* Botón full width */
+.job-card .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* ============================= */
+/* TOOLTIP SIN JS */
+/* ============================= */
+
+.job-detail {
+    display: none;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    transform: translateY(100%);
+    width: 100%;
+    background: white;
+    border: 1px solid #3b82f6;
     border-radius: 8px;
-    margin-bottom: 1rem;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 10;
 }
 
-.alert-error {
-    background: #fee2e2;
-    color: #991b1b;
+/* Mostrar al hacer hover */
+.job-card:hover .job-detail {
+    display: block;
 }
 
-.alert-success {
-    background: #dcfce7;
-    color: #166534;
+.inline-form {
+    display: inline;
+}
+
+.detail-grid {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.error {
+    color: #b91c1c;
+    font-size: 0.9rem;
 }
