@@ -1,10 +1,76 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title> </title>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Buscar Puesto')}"></head>
 <body>
+<div th:replace="~{fragmentsPublic/navbar :: navbar}"></div>
+
+<div class="page-header">
+    <h1>Buscar puesto</h1>
+
+</div>
+<main class="container">
+
+    <section class="filter-box">
+
+        <h2>Buscar puestos por características</h2>
+
+        <form th:action="@{/puestos/buscar}" method="get">
+
+            <div class="filter-content">
+
+                <div class="filter-group" th:each="cat : ${categorias}">
+
+
+                    <label class="parent">
+                        <input type="checkbox" name="caracteristicas"
+                               th:value="${cat.nombre}">
+                        <strong th:text="${cat.nombre}">Categoria</strong>
+                    </label>
+
+
+                    <div class="children">
+
+                        <label th:each="c : ${cat.hijos}">
+                            <input type="checkbox" name="caracteristicas"
+                                   th:value="${c.nombre}">
+                            <span th:text="${c.nombre}">Sub</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+                <button type="reset" class="btn btn-secondary">Limpiar</button>
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <section class="results" ><!--th:if="${puestos != null}"-->  <!---Implementar luego con backend funcionando y view características admin-->
+
+        <h3>Resultados</h3>
+
+        <div class="result-card" th:if="${#lists.isEmpty(puestos)}">
+            <p>No se encontraron resultados</p>
+        </div>
+
+        <div class="result-card" th:if="${#lists.isNotEmpty(puestos)}" th:each="puesto : ${puestos}">
+
+            <h4 th:text="${puesto.titulo}">Título</h4>
+            <p>₡ <span th:text="${puesto.salario}">0.00</span></p>
+        </div>
+
+    </section>
+
+</main>
+<div th:replace="~{fragmentsPublic/footer :: footer}"></div>
 
 </body>
+
 </html>

@@ -20,4 +20,9 @@ public class PublicController {
         model.addAttribute("title", "Inicio");
         return "Publico/Index";
     }
+    @GetMapping("/BuscarPuesto")
+    public String buscarPuesto(Model model) {
+        model.addAttribute("title", "Buscar-Puesto");
+        return "Publico/BuscarPuesto";
+    }
 }
