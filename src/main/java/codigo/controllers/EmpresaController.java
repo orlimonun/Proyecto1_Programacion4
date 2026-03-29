@@ -17,16 +17,17 @@ public class EmpresaController {
         return "Empresa/MisPuestos";
     }
 
-    @GetMapping("/Empresa/Puestos/Ver")
+    @GetMapping("/Empresa/Puestos/ver")
     public String ver(Model model) {
         model.addAttribute("title", "Empresa - Candidatos");
         return "Empresa/BuscarCandidatos";
     }
 
-    @GetMapping("/Empresa/Puestos/Detalle")
+    @GetMapping("/Empresa/Puestos/detalle")
     public String detalle(Model model) {
         model.addAttribute("title", "Empresa - Detalle Candidato");
         return "Empresa/VerDetalleCandidato";
     }
+
 
 }

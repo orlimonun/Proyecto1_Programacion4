@@ -15,16 +15,24 @@ public class PublicController {
     @GetMapping("/home")
     public String home(){return "Public Home";}
 
-    @GetMapping("/Index")
-    public String index(Model model) {
-        model.addAttribute("title", "Inicio");
-        return "Publico/Index";
-    }
     @GetMapping("/")
     public String redirect(Model model){
         model.addAttribute("title","Inicio");
         return "Publico/index";
     }
+
+    @GetMapping("/Index")
+    public String index(Model model) {
+        model.addAttribute("title", "Inicio");
+        return "Publico/Index";
+    }
+
+    @GetMapping("/Login")
+    public String login(Model model) {
+        model.addAttribute("title", "Inicio de sesión");
+        return "Autenticacion/Login";
+    }
+
     @GetMapping("/BuscarPuesto")
     public String buscarPuesto(Model model) {
         model.addAttribute("title", "Buscar-Puesto");
