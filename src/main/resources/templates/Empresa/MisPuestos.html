@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Empresa - Mis Puestos')}"></head>
 <body>
+<div th:replace="~{fragmentsEmpresa/navbar :: navbar}"></div>
 
+<div class="page-header">
+    <h1>Mis puestos</h1> <br>
+    <a class="btn btn-primary btn-sm" th:href="@{/Empresa/publicar-puesto}">Publicar puesto</a>
+
+</div>
+<main class="actions">
+
+
+    <div class="card">
+
+        <table class="table">
+
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Salario</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <!-- Si no hay puestos -->
+            <tr th:if="${#lists.isEmpty(puestos)}">
+                <td colspan="5">No tienes puestos publicados</td>
+            </tr>
+
+            <!-- Lista de puestos -->
+            <tr th:each="p : ${puestos}">
+
+                <td th:text="${p.titulo}">Desarrollador Java</td>
+
+                <td>
+                    ₡ <span th:text="${p.salario}">500000</span>
+                </td>
+
+                <td th:text="${p.tipo}">Público</td>
+
+                <td>
+                    <span class="badge"
+                          th:text="${p.estado}">Activo</span>
+                </td>
+
+                <td class="actions">
+
+                    <form th:action="@{/Empresa/Puestos/desactivar}"
+                          method="post"
+                          class="inline-form">
+
+                        <input type="hidden" name="id" th:value="${p.id}"/>
+
+                        <button type="submit"
+                                class="btn btn-danger btn-sm">
+                            Desactivar
+                        </button>
+                    </form>
+
+
+                    <a class="btn btn-primary btn-sm"
+                       th:href="@{/Empresa/Puestos/ver/{id}(id=${p.id})}">
+                        Ver
+                    </a>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+<footer>
+    <div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+</footer>
 </body>
 </html>

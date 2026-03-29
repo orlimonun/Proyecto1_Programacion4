@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Empresa - Candidatos')}"></head>
 <body>
+<div th:replace="~{fragmentsEmpresa/navbar :: navbar}"></div>
 
+<div class="page-header">
+    <h1>Candidatos para el puesto</h1> <br>
+    <b>Puesto: </b> <!-------<p>Puesto Seleccionado</p>------->
+
+</div>
+<main class="actions">
+
+
+    <div class="card">
+
+        <table class="table">
+
+            <thead>
+            <tr>
+                <th>Oferente</th>
+                <th>Requisitos cumplidos</th>
+                <th>% Coincidencia</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <!-- Si no hay puestos Modificar variable con lista real de candidatos-->
+            <tr th:if="${#lists.isEmpty(candidatos)}">
+                <td colspan="5">No hay candidatos para el puesto</td>
+            </tr>
+
+            <!-- Lista de puestos -->
+            <tr th:each="p : ${puestos}">
+
+                <td th:text="${p.titulo}">Desarrollador Java</td>
+
+                <td>
+                    ₡ <span th:text="${p.salario}">500000</span>
+                </td>
+
+                <td th:text="${p.tipo}">Público</td>
+
+                <td>
+                    <span class="badge"
+                          th:text="${p.estado}">Activo</span>
+                </td>
+
+                <td class="actions">
+                    <a class="btn btn-primary btn-sm" th:href="@{/Empresa/Puestos/Detalle}">Ver detalle</a>
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <a class="btn btn-outline-secondary btn-sm" th:href="@{/Empresa/Puestos}">Volver</a>
+</main>
+
+<footer>
+    <div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+</footer>
 </body>
 </html>
