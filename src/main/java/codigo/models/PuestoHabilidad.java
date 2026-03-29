@@ -11,7 +11,7 @@ public class PuestoHabilidad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "puesto_id")
     private Puesto puesto;
 

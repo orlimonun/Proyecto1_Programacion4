@@ -1,5 +1,5 @@
 package codigo.dtos.administrador;
 
-public record AdministradorResponse(String identificacion, String correo, String clave,boolean activo) {
+public record AdministradorResponse(Long identificacion, String correo, String clave,boolean activo) {
 
 }

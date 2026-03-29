@@ -1,9 +1,6 @@
 package codigo.repositories;
 
-import codigo.models.Oferente;
-import codigo.models.OferenteHabilidad;
-import codigo.models.Puesto;
-import codigo.models.PuestoHabilidad;
+import codigo.models.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,5 +10,6 @@ public interface OferenteHabilidadRepository extends JpaRepository<OferenteHabil
 
     List<OferenteHabilidad> findByOferente(Oferente oferente);
 
+    Optional<OferenteHabilidad> findByOferenteAndHabilidad(Oferente oferente, Habilidad habilidad);
 
 }

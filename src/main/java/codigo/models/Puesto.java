@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "puestos")
@@ -33,14 +34,26 @@ public class Puesto {
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
-    public Puesto(Empresa empresa, LocalDateTime fecha, boolean activo, boolean publico, Double salario, String descripcion, Long id) {
-        this.empresa = empresa;
-        this.fecha = fecha;
-        this.activo = activo;
-        this.publico = publico;
-        this.salario = salario;
-        this.descripcion = descripcion;
+    @OneToMany(mappedBy = "puesto")
+    private List<PuestoHabilidad> habilidades;
+
+    public Puesto(Long id, String descripcion, Double salario, boolean publico, boolean activo, LocalDateTime fecha, Empresa empresa, List<PuestoHabilidad> habilidades) {
         this.id = id;
+        this.descripcion = descripcion;
+        this.salario = salario;
+        this.publico = publico;
+        this.activo = activo;
+        this.fecha = fecha;
+        this.empresa = empresa;
+        this.habilidades = habilidades;
+    }
+
+    public List<PuestoHabilidad> getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(List<PuestoHabilidad> habilidades) {
+        this.habilidades = habilidades;
     }
 
     public Puesto() {

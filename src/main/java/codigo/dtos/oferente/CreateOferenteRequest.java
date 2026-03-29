@@ -1,13 +1,13 @@
 package codigo.dtos.oferente;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class CreateOferenteRequest {
 
-    @NotBlank(message = "Id number required")
-    @Size(min = 9, max = 9, message = "Id number must be composed by 9 digits")
-    private String identificacion;
+    @NotNull(message = "El id es obligatorio")
+    private Long identificacion;
 
     @NotBlank(message = "An email is required")
     @Size(min = 10, max = 100, message = "Product name must be between 2 and 100 characters")
@@ -41,14 +41,22 @@ public class CreateOferenteRequest {
     public CreateOferenteRequest() {
     }
 
-    public CreateOferenteRequest(String identificacion, String correo, String clave, String nombre, String primerApellido, String nacionalidad, String telefono, String residencia) {
+    public CreateOferenteRequest(Long identificacion, String correo, String clave, String nombre, String primerApellido, String nacionalidad, String telefono, String residencia) {
+        this.identificacion = identificacion;
+        this.correo = correo;
+        this.clave = clave;
+        this.nombre = nombre;
+        this.primerApellido = primerApellido;
+        this.nacionalidad = nacionalidad;
+        this.telefono = telefono;
+        this.residencia = residencia;
     }
 
-    public String getIdentificacion() {
+    public Long getIdentificacion() {
         return identificacion;
     }
 
-    public void setIdentificacion(String identificacion) {
+    public void setIdentificacion(Long identificacion) {
         this.identificacion = identificacion;
     }
 

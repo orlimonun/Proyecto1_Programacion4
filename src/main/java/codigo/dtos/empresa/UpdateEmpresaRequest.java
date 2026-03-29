@@ -2,13 +2,13 @@ package codigo.dtos.empresa;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class UpdateEmpresaRequest {
 
-    @NotBlank(message = "Id number required")
-    @Size(min = 9, max = 9, message = "Id number must be composed by 9 digits")
-    private String identificacion;
+    @NotNull(message = "El id es obligatorio")
+    private Long identificacion;
 
     @NotBlank(message = "An email is required")
     @Size(min = 10, max = 100, message = " email must be between 10 and 100 characters")
@@ -34,7 +34,7 @@ public class UpdateEmpresaRequest {
     @NotBlank(message = "A name is required")
     private String nombre;
 
-    public UpdateEmpresaRequest(String identificacion, String correo, String clave, String descripcion, String telefono, String localizacion, String nombre) {
+    public UpdateEmpresaRequest(Long identificacion, String correo, String clave, String descripcion, String telefono, String localizacion, String nombre) {
         this.identificacion = identificacion;
         this.correo = correo;
         this.clave = clave;
@@ -47,11 +47,11 @@ public class UpdateEmpresaRequest {
     public UpdateEmpresaRequest() {
     }
 
-    public String getIdentificacion() {
+    public Long getIdentificacion() {
         return identificacion;
     }
 
-    public void setIdentificacion(String identificacion) {
+    public void setIdentificacion(Long identificacion) {
         this.identificacion = identificacion;
     }
 

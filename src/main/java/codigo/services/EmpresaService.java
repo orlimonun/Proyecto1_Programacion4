@@ -26,54 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/*@Service
-@Transactional
-public class EmpresaService implements IEmpresaService {
-
-    private static final Logger log = LoggerFactory.getLogger(EmpresaService.class);
-    private final IEmpresaRepository repository;
-    private final AppProperties appProperties;
-
-    public EmpresaService(IEmpresaRepository repository, AppProperties appProperties) {
-        this.repository = repository;
-        this.appProperties = appProperties;
-    }
-    @Override
-    @Transactional(readOnly = true)
-   public List<Empresa> findAll(){
-
-        log.info("Fetching all products from the database");
-
-        return repository.findByAprovadoTrue().stream().map(this::toResponse).toList();
-
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Empresa> findAllAprovados(){return repository.findAll();}
-    
-    @Override
-    @Transactional(readOnly = true)
-   public Optional<Empresa> findById(Long id){return repository.findById(id);}
-    
-    @Override
-    @Transactional(readOnly = true)
-    public List<Empresa> findByNombreContaining(String nombre){return repository.findByAprovadoTrueAndNombreContainingIgnoreCase(nombre).stream().toList();}
-    
-    @Override
-    @Transactional(readOnly = true)
-    public Empresa save(Empresa empresa){return repository.save(empresa);}
-    
-    @Override
-    @Transactional(readOnly = true)
-    public Empresa update(Empresa empresa){return repository.save(empresa);}
-    
-    @Override
-    @Transactional(readOnly = true)
-    public void delete(Long id){repository.deleteById(id);}
-    
-}*/
 @Service
+@Transactional
 public class EmpresaService {
 
     @Autowired
@@ -88,7 +42,7 @@ public class EmpresaService {
 
     public EmpresaResponse registrar(CreateEmpresaRequest dto) {
 
-        if (empresaRepository.existsByCorreo(dto.getCorreo())) {
+        if (empresaRepository.existsByEmail(dto.getCorreo())) {
             throw new RuntimeException("El correo ya está registrado");
         }
 
@@ -109,7 +63,7 @@ public class EmpresaService {
 
     public EmpresaResponse login(String correo, String clave) {
 
-        Empresa empresa = empresaRepository.findByCorreo(correo)
+        Empresa empresa = empresaRepository.findByEmail(correo)
                 .orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
 
         if (!empresa.getPassword().equals(clave)) {
@@ -126,7 +80,7 @@ public class EmpresaService {
 
     public List<PuestoResponse> listarMisPuestos(Long empresaId) {
 
-        List<Puesto> puestos = puestoRepository.findById(empresaId);
+        List<Puesto> puestos = puestoRepository.findByEmpresaId(empresaId);
 
         return puestos.stream()
                 .map(this::mapPuestoToResponse)
@@ -200,6 +154,14 @@ public class EmpresaService {
 
     private PuestoResponse mapPuestoToResponse(Puesto p) {
 
+        List<HabilidadNivel> habilidades = p.getHabilidades()
+                .stream()
+                .map(ph -> new HabilidadNivel(
+                        ph.getHabilidad().getId(),
+                        ph.getNivelRequerido()
+                ))
+                .toList();
+
         return new PuestoResponse(
                 p.getId(),
                 p.getDescripcion(),
@@ -207,7 +169,7 @@ public class EmpresaService {
                 p.isPublico(),
                 p.isActivo(),
                 p.getEmpresa().getNombre(),
-                p.get
+                habilidades
         );
     }
 }

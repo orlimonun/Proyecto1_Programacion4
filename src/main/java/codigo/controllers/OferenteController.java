@@ -32,7 +32,7 @@ public class OferenteController {
 
     @GetMapping
     public String list(Model model){
-        model.addAttribute("Mis habilidades",OferenteService.findAll());
+        model.addAttribute("Mis habilidades",OferenteService.getAllOferentes());
         model.addAttribute("pageTitle","Mis Habilidades");
 
         return "Oferente/MisHabilidades";
@@ -53,12 +53,9 @@ public class OferenteController {
 
         archivoService.guardarCV(archivo, oferenteId);
 
-        return "redirect:/oferente/dashboard";
+        return "redirect:/Oferente/Dashboard";
     }
     //implementar
-    @PostMapping("/subirCV")
-
-
     @PostMapping("/MisHabilidades")
 
 }

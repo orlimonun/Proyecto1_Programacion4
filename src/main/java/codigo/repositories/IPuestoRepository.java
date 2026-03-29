@@ -14,6 +14,7 @@ public interface IPuestoRepository  extends JpaRepository<Puesto, Long> {
 
     Optional<Empresa> findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
 
+    List<Puesto> findByEmpresaId(Long empresaId);
 
     @Query("""
 

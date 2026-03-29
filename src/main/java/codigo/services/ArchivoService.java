@@ -24,7 +24,7 @@ public class ArchivoService {
 
     public  void guardarCV(MultipartFile file, Long oferenteId){
 
-        if (!file.getContentType().equals("application/pdf")) {
+        if (!file.getOriginalFilename().toLowerCase().endsWith(".pdf")) {
             throw new RuntimeException("Solo se permiten archivos PDF");
         }
 

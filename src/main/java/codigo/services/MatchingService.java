@@ -36,7 +36,7 @@ public class MatchingService {
         this.oferenteHabilidadRepository = oferenteHabilidadRepository;
     }
 
-    List<OferenteResponse> buscarCandidatos(Long puestoId){
+   public  List<OferenteResponse> buscarCandidatos(Long puestoId){
 
         Puesto puesto = puestoRepository.findById(puestoId)
                 .orElseThrow(() -> new RuntimeException("Puesto no encontrado"));

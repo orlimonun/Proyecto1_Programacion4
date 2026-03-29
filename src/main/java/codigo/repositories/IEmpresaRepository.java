@@ -11,5 +11,9 @@ public interface IEmpresaRepository extends JpaRepository<Empresa,Long> {
     List<Empresa> findByAprovadoTrue();
 
     Optional <Empresa>findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
-    
+
+    boolean existsByEmail(String email);
+
+    Optional<Empresa> findByEmail(String email);
+
 }

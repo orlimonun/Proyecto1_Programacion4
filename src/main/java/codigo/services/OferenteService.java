@@ -5,8 +5,13 @@ import codigo.dtos.oferente.CreateOferenteRequest;
 import codigo.dtos.oferente.OferenteResponse;
 import codigo.dtos.oferente.UpdateOferenteRequest;
 import codigo.exceptions.OferenteNotFoundException;
+import codigo.models.Habilidad;
 import codigo.models.Oferente;
+import codigo.models.OferenteHabilidad;
+import codigo.models.Rol;
+import codigo.repositories.HabilidadRepository;
 import codigo.repositories.IOferenteRepository;
+import codigo.repositories.OferenteHabilidadRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,50 +24,112 @@ import java.util.List;
 @Service
 public class OferenteService {
 
-    private static final Logger log = LoggerFactory.getLogger(OferenteService.class);
-    private final IOferenteService service;
-    private final AppProperties appProperties;
+    private final IOferenteRepository oferenteRepository;
+    private final OferenteHabilidadRepository oferenteHabilidadRepository;
+    private final HabilidadRepository habilidadRepository;
 
-    public OferenteService(IOferenteService service, AppProperties appProperties) {
-        this.service = service;
-        this.appProperties = appProperties;
+
+    public OferenteService(IOferenteRepository oferenteRepository, OferenteHabilidadRepository oferenteHabilidadRepository, HabilidadRepository habilidadRepository) {
+        this.oferenteRepository = oferenteRepository;
+        this.oferenteHabilidadRepository = oferenteHabilidadRepository;
+        this.habilidadRepository = habilidadRepository;
     }
 
     public List<OferenteResponse> getAllOferentes() {
-        log.info("Fetching all oferentes from the database");
-
-        return service.findAllAprovados().stream().map(this::toResponse).toList();
+        return oferenteRepository.findByAprovadoTrue()
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     public OferenteResponse getOferenteById(Long id) {
-        log.info("Fetching Oferente with id {} from the database", id);
 
-        Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
+        Oferente oferente = oferenteRepository.findById(id)
+                .orElseThrow(() -> new OferenteNotFoundException(id));
 
         return toResponse(oferente);
     }
 
-    public Oferente getDomainOferenteById(Long id) {
-        log.info("Fetching Oferente with id {} from the database", id);
-
-        return service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
-    }
-
     public OferenteResponse createOferente(CreateOferenteRequest request) {
-        log.info("Creating new Oferente from the database");
 
-        Oferente oferente = new Oferente(request.getIdentificacion(), request.getCorreo(), request.getClave(),request.,true, request.getNombre(),
-                request.getPrimerApellido(), request.getNacionalidad(),request.getTelefono(), request.getResidencia());
+        Oferente oferente = new Oferente(
+                request.getIdentificacion(),
+                request.getCorreo(),
+                request.getClave(),
+                Rol.OFERENTE,
+                false,
+                request.getNombre(),
+                request.getPrimerApellido(),
+                request.getNacionalidad(),
+                request.getTelefono(),
+                request.getResidencia()
+        );
 
-        Oferente saved = service.save(oferente);
+        Oferente saved = oferenteRepository.save(oferente);
 
         return toResponse(saved);
     }
 
-    public OferenteResponse updateOferente(Long id, UpdateOferenteRequest request) {
-        log.info("Updating Oferente with id {} in the database", id);
+    public void agregarHabilidad(Long oferenteId, Long habilidadId, int nivel) {
 
-        Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
+        Oferente oferente = oferenteRepository.findById(oferenteId)
+                .orElseThrow(() -> new RuntimeException("Oferente no encontrado"));
+
+        Habilidad habilidad = habilidadRepository.findById(habilidadId)
+                .orElseThrow(() -> new RuntimeException("Habilidad no encontrada"));
+
+        OferenteHabilidad oh = new OferenteHabilidad();
+        oh.setOferente(oferente);
+        oh.setHabilidad(habilidad);
+        oh.setNivel(nivel);
+
+        oferenteHabilidadRepository.save(oh);
+    }
+
+    public void actualizarNivel(Long oferenteId, Long habilidadId, int nivel) {
+
+        Oferente oferente = oferenteRepository.findById(oferenteId)
+                .orElseThrow(() -> new RuntimeException("Oferente no encontrado"));
+
+        Habilidad habilidad = habilidadRepository.findById(habilidadId)
+                .orElseThrow(() -> new RuntimeException("Habilidad no encontrada"));
+
+        OferenteHabilidad oh = oferenteHabilidadRepository
+                .findByOferenteAndHabilidad(oferente, habilidad)
+                .orElseThrow(() -> new RuntimeException("Habilidad no asignada al oferente"));
+
+        oh.setNivel(nivel);
+
+        oferenteHabilidadRepository.save(oh);
+    }
+
+    public void eliminarHabilidad(Long oferenteId, Long habilidadId) {
+
+        Oferente oferente = oferenteRepository.findById(oferenteId)
+                .orElseThrow(() -> new RuntimeException("Oferente no encontrado"));
+
+        Habilidad habilidad = habilidadRepository.findById(habilidadId)
+                .orElseThrow(() -> new RuntimeException("Habilidad no encontrada"));
+
+        OferenteHabilidad oh = oferenteHabilidadRepository
+                .findByOferenteAndHabilidad(oferente, habilidad)
+                .orElseThrow(() -> new RuntimeException("Habilidad no asignada"));
+
+        oferenteHabilidadRepository.delete(oh);
+    }
+
+    public List<OferenteHabilidad> listarHabilidades(Long oferenteId) {
+
+        Oferente oferente = oferenteRepository.findById(oferenteId)
+                .orElseThrow(() -> new RuntimeException("Oferente no encontrado"));
+
+        return oferenteHabilidadRepository.findByOferente(oferente);
+    }
+
+    public OferenteResponse updateOferente(Long id, UpdateOferenteRequest request) {
+
+        Oferente oferente = oferenteRepository.findById(id)
+                .orElseThrow(() -> new OferenteNotFoundException(id));
 
         oferente.setEmail(request.getCorreo());
         oferente.setPassword(request.getClave());
@@ -72,34 +139,31 @@ public class OferenteService {
         oferente.setTelefono(request.getTelefono());
         oferente.setResidencia(request.getResidencia());
 
-        Oferente updated = service.update(oferente);
-
-        return toResponse(updated);
+        return toResponse(oferenteRepository.save(oferente));
     }
 
     public void deleteLogical(Long id) {
-        log.info("Logically deleting Oferente with id {} in the database", id);
 
-        Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
+        Oferente oferente = oferenteRepository.findById(id)
+                .orElseThrow(() -> new OferenteNotFoundException(id));
 
-        oferente.setActivo(false);
+        oferente.setAprobado(false);
 
-        service.update(oferente);
-    }
-
-    public UpdateOferenteRequest buildUpdateRequest(Long id) {
-        log.info("Building update request for Oferente with id {} from the database", id);
-
-        Oferente oferente = service.findById(id).orElseThrow(() -> new OferenteNotFoundException(id));
-
-        return new UpdateOferenteRequest(oferente.getId(), oferente.getEmail(),oferente.getPassword(),
-                oferente.getNombre(),oferente.getPrimerApellido(), oferente.getNacionalidad(), oferente.getTelefono(), oferente.getResidencia());
+        oferenteRepository.save(oferente);
     }
 
     private OferenteResponse toResponse(Oferente oferente) {
 
-        return new OferenteResponse(oferente.getId(), oferente.getEmail(),oferente.getPassword(), oferente.isAprobado(),
-                oferente.getNombre(),oferente.getPrimerApellido(), oferente.getNacionalidad(), oferente.getTelefono(), oferente.getResidencia());
+        return new OferenteResponse(
+                oferente.getId(),
+                oferente.getEmail(),
+                oferente.getPassword(),
+                oferente.isAprobado(),
+                oferente.getNombre(),
+                oferente.getPrimerApellido(),
+                oferente.getNacionalidad(),
+                oferente.getTelefono(),
+                oferente.getResidencia()
+        );
     }
-
 }
