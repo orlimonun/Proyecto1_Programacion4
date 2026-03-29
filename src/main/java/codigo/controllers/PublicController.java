@@ -20,6 +20,11 @@ public class PublicController {
         model.addAttribute("title", "Inicio");
         return "Publico/Index";
     }
+    @GetMapping("/")
+    public String redirect(Model model){
+        model.addAttribute("title","Inicio");
+        return "Publico/index";
+    }
     @GetMapping("/BuscarPuesto")
     public String buscarPuesto(Model model) {
         model.addAttribute("title", "Buscar-Puesto");

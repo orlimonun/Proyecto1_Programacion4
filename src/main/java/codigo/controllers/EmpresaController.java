@@ -11,4 +11,22 @@ public class EmpresaController {
         model.addAttribute("title", "Empresa");
         return "Empresa/Dashboard";
     }
+    @GetMapping("/Empresa/Puestos")
+    public String puestos(Model model) {
+        model.addAttribute("title", "Empresa - Mis Puestos");
+        return "Empresa/MisPuestos";
+    }
+
+    @GetMapping("/Empresa/Puestos/Ver")
+    public String ver(Model model) {
+        model.addAttribute("title", "Empresa - Candidatos");
+        return "Empresa/BuscarCandidatos";
+    }
+
+    @GetMapping("/Empresa/Puestos/Detalle")
+    public String detalle(Model model) {
+        model.addAttribute("title", "Empresa - Detalle Candidato");
+        return "Empresa/VerDetalleCandidato";
+    }
+
 }
