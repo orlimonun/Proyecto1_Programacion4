@@ -38,4 +38,16 @@ public class PublicController {
         model.addAttribute("title", "Buscar-Puesto");
         return "Publico/BuscarPuesto";
     }
+
+    @GetMapping("/Empresa/Registro")
+    public String registroEmpresa(Model model) {
+        model.addAttribute("title", "Registrar - Empresa");
+        return "Publico/RegistroEmpresa";
+    }
+
+    @GetMapping("/Oferente/Registro")
+    public String registroOferente(Model model) {
+        model.addAttribute("title", "Registrar - Oferente");
+        return "Publico/RegistroOferente";
+    }
 }
