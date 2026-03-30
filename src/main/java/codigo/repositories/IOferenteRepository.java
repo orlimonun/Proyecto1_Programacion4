@@ -12,7 +12,7 @@ public interface IOferenteRepository extends JpaRepository<Oferente,Long> {
 
     List<Oferente> findByAprobadoTrue();
 
-    Optional <Oferente>findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
+    Optional <Oferente>findByAprobadoTrueAndNombreContainingIgnoreCase(String nombre);
 
     boolean existsByEmail(String email);
     Optional<Oferente> findByEmail(String email);

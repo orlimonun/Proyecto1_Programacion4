@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface IPuestoRepository  extends JpaRepository<Puesto, Long> {
 
-    List<Puesto> findByAprovadoTrue();
+    List<Puesto> findByActivoTrue();
 
-    Optional<Puesto> findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
+    Optional<Puesto> findByActivoTrueAndDescripcionContainingIgnoreCase(String nombre);
 
     List<Puesto> findByEmpresaId(Long empresaId);
 

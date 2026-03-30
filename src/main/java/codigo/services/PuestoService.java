@@ -46,7 +46,7 @@ public class PuestoService {
     @Transactional(readOnly = true)
     public List<PuestoResponse> findAll() {
         return puestoRepository
-                .findByAprovadoTrue()
+                .findByActivoTrue()
                 .stream()
                 .map(this::toView)
                 .toList();
@@ -66,7 +66,7 @@ public class PuestoService {
     public List<PuestoResponse> searchByName(String descripcion) {
 
         return puestoRepository
-                .findByAprovadoTrueAndNombreContainingIgnoreCase(descripcion.trim())
+                .findByActivoTrueAndDescripcionContainingIgnoreCase(descripcion.trim())
                 .stream()
                 .map(this::toView)
                 .toList();

@@ -7,13 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface PuestoHabilidadRepository extends JpaRepository<HabilidadNivel, Long> {
-
-    List<HabilidadNivel> findByAprovadoTrue();
-
-    Optional<Empresa> findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
+public interface PuestoHabilidadRepository extends JpaRepository<PuestoHabilidad, Long> {
 
     List<PuestoHabilidad> findByPuesto(Puesto puesto);
-
 
 }
