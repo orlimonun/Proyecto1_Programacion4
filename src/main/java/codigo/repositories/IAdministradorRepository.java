@@ -1,25 +1,16 @@
 package codigo.repositories;
 
-import codigo.models.Administrador;
+import codigo.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface IAdministradorRepository extends JpaRepository<Administrador,Long> {
+public interface IAdministradorRepository extends JpaRepository<Usuario,Long> {
 
-    List<Administrador> findAll();
+    List<Usuario> findAll();
 
-    List<Administrador> findAllActive();
+    List<Usuario> findByAprobadoTrue();
 
-    Optional<Administrador> findById(Long id);
-
-    List<Administrador> findByNameContaining(String name);
-
-    List<Administrador> findByAprovadoTrue();
-
-    Administrador save(Administrador administrador);
-
-    Administrador update(Administrador administrador);
     
 }

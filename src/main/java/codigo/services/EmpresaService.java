@@ -19,6 +19,8 @@ import codigo.repositories.IPuestoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -172,4 +174,19 @@ public class EmpresaService {
                 habilidades
         );
     }
+
+    public Empresa getEmpresaActual() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new RuntimeException("No hay usuario autenticado");
+        }
+
+        String email = auth.getName();
+
+        return empresaRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Empresa no encontrada con email: " + email));
+    }
+
 }

@@ -10,8 +10,10 @@ import java.util.Optional;
 
 public interface IOferenteRepository extends JpaRepository<Oferente,Long> {
 
-    List<Oferente> findByAprovadoTrue();
+    List<Oferente> findByAprobadoTrue();
 
     Optional <Oferente>findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
-    
+
+    boolean existsByEmail(String email);
+    Optional<Oferente> findByEmail(String email);
 }

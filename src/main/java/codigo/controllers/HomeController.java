@@ -1,5 +1,6 @@
 package codigo.controllers;
 
+import codigo.services.PuestoService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1")
 public class HomeController {
 
+    private final PuestoService puestoService;
 
-    @GetMapping("/home")
-    public String home() {
-        return "Private Home";
+    public HomeController(PuestoService puestoService) {
+        this.puestoService = puestoService;
     }
 
-    @GetMapping("/admin")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String admin(Model model) {
-        model.addAttribute("title", "Admin");
-        return "admin/dashboard";
+    @GetMapping("/")
+    public String index(Model model) {
+
+        // últimos 5 puestos públicos
+        model.addAttribute("puestos", puestoService.ultimos5Publicos());
+
+        return "Publico/Index";
     }
-//implementar
-    @GetMapping("/BuscarPuesto")
+
 }

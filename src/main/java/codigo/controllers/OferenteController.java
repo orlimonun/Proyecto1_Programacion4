@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/Empresa")
+@RequestMapping("/Oferente")
 public class OferenteController {
 
     private final OferenteService servicio;
@@ -30,18 +30,12 @@ public class OferenteController {
         return "Oferente/Dashboard";
     }
 
-    @GetMapping
-    public String list(Model model){
-        model.addAttribute("Mis habilidades",OferenteService.getAllOferentes());
+    @GetMapping("habilidades")
+    public String list(Model model,Long id){
+        model.addAttribute("Mis habilidades",servicio.listarHabilidades(id));
         model.addAttribute("pageTitle","Mis Habilidades");
 
         return "Oferente/MisHabilidades";
-    }
-    @GetMapping("/{id}")
-    public String detail(){
-
-
-
     }
 
     @PostMapping("/Oferente/SubirCC")
@@ -55,7 +49,17 @@ public class OferenteController {
 
         return "redirect:/Oferente/Dashboard";
     }
-    //implementar
     @PostMapping("/MisHabilidades")
+    public String agregarHabilidad(
+            @RequestParam Long habilidadId,
+            @RequestParam int nivel,
+            @AuthenticationPrincipal Usuario user) {
+
+        Long oferenteId = user.getId();
+
+        servicio.agregarHabilidad(oferenteId, habilidadId, nivel);
+
+        return "redirect:/Oferente/habilidades";
+    }
 
 }

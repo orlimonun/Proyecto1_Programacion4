@@ -90,4 +90,22 @@ public class MatchingService {
 
     }
 
+    public OferenteResponse getDetalleCandidato(Long oferenteId) {
+
+        Oferente oferente = oferenteRepository.findById(oferenteId)
+                .orElseThrow(() -> new RuntimeException("Oferente no encontrado"));
+
+        return new OferenteResponse(
+                oferente.getId(),
+                oferente.getEmail(),
+                oferente.getPassword(),
+                oferente.isAprobado(),
+                oferente.getNombre(),
+                oferente.getPrimerApellido(),
+                oferente.getNacionalidad(),
+                oferente.getTelefono(),
+                oferente.getResidencia()
+        );
+    }
+
 }

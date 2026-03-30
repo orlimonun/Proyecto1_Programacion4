@@ -4,15 +4,15 @@ import codigo.dtos.administrador.CreateAdministradorRequest;
 import codigo.dtos.administrador.AdministradorResponse;
 import codigo.dtos.administrador.UpdateAdministradorRequest;
 import codigo.exceptions.AdministradorNotFoundException;
-import codigo.models.Administrador;
 import codigo.models.Empresa;
 import codigo.models.Oferente;
+import codigo.models.Rol;
+import codigo.models.Usuario;
 import codigo.repositories.IAdministradorRepository;
 import codigo.repositories.IEmpresaRepository;
 import codigo.repositories.IOferenteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import codigo.config.AppProperties;
 import java.util.List;
@@ -38,18 +38,18 @@ public class AdministradorService {
     public List<AdministradorResponse> getAllAdministradors() {
         log.info("Fetching all administradors from the database");
 
-        return repository.findAllActive().stream().map(this::toResponse).toList();
+        return repository.findByAprobadoTrue().stream().map(this::toResponse).toList();
     }
 
     public AdministradorResponse getAdministradorById(Long id) {
         log.info("Fetching administrador with id {} from the database", id);
 
-        Administrador administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
+        Usuario administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
 
         return toResponse(administrador);
     }
 
-    public Administrador getDomainAdministradorById(Long id) {
+    public Usuario getDomainAdministradorById(Long id) {
         log.info("Fetching administrador with id {} from the database", id);
 
         return repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
@@ -58,9 +58,9 @@ public class AdministradorService {
     public AdministradorResponse createAdministrador(CreateAdministradorRequest request) {
         log.info("Creating new administrador from the database");
 
-        Administrador administrador = new Administrador(request.getIdentificacion(), request.getCorreo(), request.getClave(),true);
+        Usuario administrador = new Usuario(request.getIdentificacion(), request.getCorreo(), request.getClave(), Rol.ADMIN,true);
 
-        Administrador saved = repository.save(administrador);
+        Usuario saved = repository.save(administrador);
 
         return toResponse(saved);
     }
@@ -68,12 +68,12 @@ public class AdministradorService {
     public AdministradorResponse updateAdministrador(Long id, UpdateAdministradorRequest request) {
         log.info("Updating administrador with id {} in the database", id);
 
-        Administrador administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
+        Usuario administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
 
         administrador.setEmail(request.getCorreo());
         administrador.setPassword(request.getClave());
 
-        Administrador updated = repository.update(administrador);
+        Usuario updated = repository.save(administrador);
 
         return toResponse(updated);
     }
@@ -81,22 +81,22 @@ public class AdministradorService {
     public void deleteLogical(Long id) {
         log.info("Logically deleting administrador with id {} in the database", id);
 
-        Administrador administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
+        Usuario administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
 
         administrador.setAprobado(false);
 
-        repository.update(administrador);
+        repository.save(administrador);
     }
 
     public UpdateAdministradorRequest buildUpdateRequest(Long id) {
         log.info("Building update request for administrador with id {} from the database", id);
 
-        Administrador administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
+        Usuario administrador = repository.findById(id).orElseThrow(() -> new AdministradorNotFoundException(id));
 
         return new UpdateAdministradorRequest(administrador.getId(), administrador.getEmail(), administrador.getPassword());
     }
 
-    private AdministradorResponse toResponse(Administrador administrador) {
+    private AdministradorResponse toResponse(Usuario administrador) {
 
         return new AdministradorResponse(administrador.getId(), administrador.getEmail(), administrador.getPassword(),administrador.isAprobado());
     }

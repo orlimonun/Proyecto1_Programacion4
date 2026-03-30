@@ -35,4 +35,19 @@ public class SecurityUsuario implements UserDetails {
     public boolean isEnabled() {
         return usuario.isAprobado();
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 }

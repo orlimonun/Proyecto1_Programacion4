@@ -24,13 +24,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/public/**", "/auth/**", "/", "/login").permitAll()
 
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/empresa/**").hasRole("EMPRESA")
-                        .requestMatchers("/oferente/**").hasRole("OFERENTE")
+                        .requestMatchers("/Administrador/**").hasRole("ADMIN")
+                        .requestMatchers("/Empresa/").hasRole("EMPRESA")
+                        .requestMatchers("/Oferente/**").hasRole("OFERENTE")
 
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/Login")
+                        .defaultSuccessUrl("/redirect", true)
+                        .permitAll()
+                )
                 .build();
     }
 

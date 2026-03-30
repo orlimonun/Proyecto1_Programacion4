@@ -1,14 +1,13 @@
 package codigo.services;
 
 import codigo.config.AppProperties;
+import codigo.dtos.empresa.CreateEmpresaRequest;
+import codigo.dtos.empresa.EmpresaResponse;
 import codigo.dtos.oferente.CreateOferenteRequest;
 import codigo.dtos.oferente.OferenteResponse;
 import codigo.dtos.oferente.UpdateOferenteRequest;
 import codigo.exceptions.OferenteNotFoundException;
-import codigo.models.Habilidad;
-import codigo.models.Oferente;
-import codigo.models.OferenteHabilidad;
-import codigo.models.Rol;
+import codigo.models.*;
 import codigo.repositories.HabilidadRepository;
 import codigo.repositories.IOferenteRepository;
 import codigo.repositories.OferenteHabilidadRepository;
@@ -36,7 +35,7 @@ public class OferenteService {
     }
 
     public List<OferenteResponse> getAllOferentes() {
-        return oferenteRepository.findByAprovadoTrue()
+        return oferenteRepository.findByAprobadoTrue()
                 .stream()
                 .map(this::toResponse)
                 .toList();
@@ -69,6 +68,7 @@ public class OferenteService {
 
         return toResponse(saved);
     }
+
 
     public void agregarHabilidad(Long oferenteId, Long habilidadId, int nivel) {
 

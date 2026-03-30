@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface IPuestoRepository  extends JpaRepository<Puesto, Long> {
 
-    List<Empresa> findByAprovadoTrue();
+    List<Puesto> findByAprovadoTrue();
 
-    Optional<Empresa> findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
+    Optional<Puesto> findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
 
     List<Puesto> findByEmpresaId(Long empresaId);
 
@@ -24,4 +24,7 @@ WHERE MONTH(p.fecha) = :mes
 AND YEAR(p.fecha) = :anio
 """)
     List<Puesto> findPuestosByMesAndAnio(int mes, int anio);
+
+    List<Puesto> findTop5ByPublicoTrueAndActivoTrueOrderByFechaDesc();
+
 }

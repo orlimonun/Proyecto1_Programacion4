@@ -20,7 +20,7 @@ public class HabilidadService {
         this.habilidadRepository = habilidadRepository;
     }
 
-    List<HabilidadResponse> getAll(){
+    public List<HabilidadResponse> getAll(){
 
         return habilidadRepository.findAll()
                 .stream()
@@ -37,7 +37,7 @@ public class HabilidadService {
         return toResponse(habilidad);
     }
 
-    HabilidadResponse create(CreateHabilidadRequest request){
+   public HabilidadResponse create(CreateHabilidadRequest request){
 
         Habilidad habilidad = new Habilidad();
         habilidad.setNombre(request.getNombre());
@@ -55,7 +55,7 @@ public class HabilidadService {
         return toResponse(habilidad);
 
     }
-    HabilidadResponse update(Long id, UpdateHabilidadRequest request){
+   public HabilidadResponse update(Long id, UpdateHabilidadRequest request){
 
         Habilidad habilidad = habilidadRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Habilidad no encontrada"));
@@ -67,7 +67,7 @@ public class HabilidadService {
         return toResponse(habilidad);
 
     }
-    void delete(Long id){
+    public void delete(Long id){
 
         Habilidad habilidad = habilidadRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Habilidad no encontrada"));

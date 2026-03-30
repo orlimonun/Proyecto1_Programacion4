@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface IEmpresaRepository extends JpaRepository<Empresa,Long> {
 
-    List<Empresa> findByAprovadoTrue();
+    List<Empresa> findByAprobadoTrue();
 
-    Optional <Empresa>findByAprovadoTrueAndNombreContainingIgnoreCase(String nombre);
+    Optional <Empresa>findByAprobadoTrueAndNombreContainingIgnoreCase(String nombre);
 
     boolean existsByEmail(String email);
 
