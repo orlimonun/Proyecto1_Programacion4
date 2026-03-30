@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Admin - Oferentes Pendientes')}"></head>
 <body>
+<div th:replace="~{fragmentsAdmin/navbar :: navbar}"></div>
 
+<div class="page-header">
+    <h1>Administrador</h1>
+
+</div>
+<main class="actions">
+
+
+    <div class="card">
+
+        <table class="table">
+
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Acción</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:if="${#lists.isEmpty(oferentes)}">
+                <td colspan="5">No hay oferentes pendientes</td>
+            </tr>
+
+            <tr th:each="o : ${oferentes}">
+
+                <td th:text="${o.nombre}"></td>
+
+                <td th:text="${o.apellido}"></td>
+
+                <td class="actions">
+                    <a class="btn btn-submit btn-sm" th:href="@{/admin/aceptarOferente}">Aprobar y generar clave</a>
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+</main>
+<footer>
+    <div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+</footer>
 </body>
 </html>

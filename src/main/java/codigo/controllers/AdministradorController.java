@@ -12,6 +12,24 @@ public class AdministradorController {
         model.addAttribute("title", "Admin");
         return "Administrador/Dashboard";
     }
+
+    @GetMapping("/Admin/EmpresasPendientes")
+    public String empresasPendientes(Model model) {
+        model.addAttribute("title", "Admin - Empresas Pendientes");
+        return "Admin/EmpresasPendientes";
+    }
+
+    @GetMapping("/Admin/OferentesPendientes")
+    public String oferentesPendientes(Model model) {
+        model.addAttribute("title", "Admin - Oferentes Pendientes");
+        return "Admin/OferentesPendientes";
+    }
+
+    @GetMapping("/Admin/Caracteristicas")
+    public String caracteristicas(Model model) {
+        model.addAttribute("title", "Admin - Características");
+        return "Admin/Caracteristicas";
+    }
 }
 /*
 import codigo.services.AdministradorService;

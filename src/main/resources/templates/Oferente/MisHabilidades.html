@@ -1,10 +1,135 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Oferente - Mis Habilidades')}"></head>
 <body>
+<div th:replace="~{fragmentsOferente/navbar :: navbar}"></div>
 
+<div class="page-header">
+    <h1>Mis Habilidades</h1>
+</div>
+<main class="container">
+
+    <div class="skills-layout">
+
+
+        <div class="green-card">
+            <div class="caracteristicas">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Nivel</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:if="${#lists.isEmpty(habilidades)}">
+                        <td colspan="2">No hay habilidades registradas</td>
+                    </tr>
+
+                    <tr th:each="h : ${habilidades}">
+                        <td th:text="${h.nombre}"></td>
+                        <td th:text="${h.nivel}"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="green-card">
+
+            <p><strong>Ruta:</strong></p>
+
+            <div class="ruta">
+
+                <span th:each="r, iter : ${ruta}">
+
+                    <span class="badge" th:text="${r.nombre}"></span>
+
+                    <span th:if="${!iter.last}">/</span>
+
+                </span>
+
+            </div>
+
+            <p class="subtitulo">
+                Subcategorías de:
+                <strong ></strong><!------Agregar nombre de categorías--->
+            </p>
+
+            <div class="sub-list">
+                <div class="caracteristicas">
+                    <div class="sub-item"
+                         th:each="sub : ${subcategorias}">
+
+                        <span th:text="${sub.nombre}"></span>
+
+                        <a class="btn btn-primary btn-sm"
+                           th:href="@{/oferente/habilidades/{id}(id=${sub.id})}">
+                            Entrar
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="green-card">
+
+            <div class="caracteristicas">
+                <h3>Agregar Habilidad</h3>
+
+                <form th:action="@{/habilidades/agregar}" method="post" class="form-layout">
+
+
+                    <div class="field">
+                        <label>Característica</label>
+
+                        <select name="caracteristicaId" required>
+
+                            <option value="">Seleccione</option>
+
+                            <option th:each="c : ${subcategorias}"
+                                    th:value="${c.id}"
+                                    th:text="${c.nombre}">
+                            </option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="field">
+                        <label>Nivel</label>
+
+                        <select name="nivel" required>
+                            <option value="">Seleccione</option>
+
+                            <option th:each="n : ${#numbers.sequence(1,5)}"
+                                    th:value="${n}"
+                                    th:text="${n}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Agregar
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<footer>
+    <div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+</footer>
 </body>
 </html>

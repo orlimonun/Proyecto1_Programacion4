@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Oferente - Mis Habilidades')}"></head>
+<body>
+<div th:replace="~{fragmentsOferente/navbar :: navbar}"></div>
+
+<div class="page-header">
+    <h1>Mi CV</h1>
+</div>
+<main class="container">
+
+    <div class="card">
+
+        <form th:action="@{/oferente/cv/subir}" method="post" enctype="multipart/form-data">
+
+            <div class="field">
+                <label>Seleccionar archivo (PDF)</label>
+                <input type="file" name="archivo" accept="application/pdf" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">
+                Subir CV
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="card" th:if="${cvDisponible}">
+        <h3>Mi CV actual</h3>
+
+        <a class="btn btn-secondary"
+           th:href="@{/oferente/cv/ver}">
+            Ver CV
+        </a>
+    </div>
+
+</main>
+
+<footer>
+    <div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+</footer>
+</body>
+</html>

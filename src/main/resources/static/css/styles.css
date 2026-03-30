@@ -182,6 +182,119 @@ main {
     flex-direction: column;
     gap: 3px;
 }
+
+/*-------------------------------------------------------Mis habilidades oferente---------------------*/
+
+.skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+
+.green-card {
+    background: #cce3d4;
+    border: 1px solid #cce3d4;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+
+.ruta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+
+.subtitulo {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+
+.sub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+
+.sub-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.green-card .btn {
+    width: 100%;
+    margin-top: 0.8rem;
+}
+.caracteristicas{
+    background: whitesmoke;
+    border-radius: 12px;
+    padding: 1rem;
+}
+/*-------------------------------------------------------caracteristicas---------------------*/
+
+.carac-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+
+.green-card {
+    background: #cce3d4;
+    border: 1px solid #cce3d4;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+
+.ruta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+
+.subtitulo {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+
+.sub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+
+.sub-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.green-card .btn {
+    width: 100%;
+    margin-top: 0.8rem;
+}
+.caracteristicas{
+    background: whitesmoke;
+    border-radius: 12px;
+    padding: 1rem;
+}
 /*/////////////////////////////////////////////*/
 .card {
     background: white;
@@ -233,6 +346,11 @@ main {
     outline: none;
     border-color: #2563eb;
     box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+.field select {
+    padding: 0.7rem 0.8rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
 }
 /*-------------------------------------------------Botones-------------------------*/
 .btn {
@@ -309,6 +427,12 @@ main {
 .btn-outline-secondary:hover {
     background-color: #6c757d;
     color: white;
+}
+
+.radio-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
 }
 /*-------------------------------------------Login--------------------------------*/
 .auth-container {
