@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Registro Oferente')}"></head>
+<body>
+<div th:replace="~{fragmentsPublic/navbar :: navbar}"></div>
+
+<div class="page-header">
+    <h1>Registro de oferente</h1>
+
+</div>
+<main class="container">
+
+    <section class="card">
+
+
+        <form th:action="@{/Oferente/Registro}" method="post" class="form-layout">
+
+            <div class="field">
+                <label for="identificacion">Identificación</label>
+                <input type="text" id="identificacion" name="identificacion" placeholder="X-XXXX-XXXX" required>
+            </div>
+
+            <div class="field">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Carlos" required>
+            </div>
+
+            <div class="field">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" placeholder="Cruz" required>
+            </div>
+
+            <div class="field">
+                <label for="nacionalidad">Nacionalidad</label>
+                <input type="text" id="nacionalidad" name="nacionalidad" placeholder="Costarricense" required>
+            </div>
+
+            <div class="field">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="xxxx-xxxx" pattern="[0-9]{8}" title="Debe tener 8 dígitos" required>
+            </div>
+
+            <div class="field">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" placeholder="info@bolsaempleo.local" required>
+            </div>
+
+            <div class="field">
+                <label for="residencia">Lugar de residencia</label>
+                <input type="text" id="residencia" name="residencia" placeholder="San José, Curridabat" required>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Registrar</button>
+                <a th:href="@{/}" class="btn btn-secondary">Cancelar</a>
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+<div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+
+</body>

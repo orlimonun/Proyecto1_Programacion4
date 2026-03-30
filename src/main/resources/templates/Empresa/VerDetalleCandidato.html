@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Empresa - Detalle Candidato')}"></head>
 <body>
+<div th:replace="~{fragmentsEmpresa/navbar :: navbar}"></div>
 
+<div class="page-header">
+    <h1>Detalle de oferente</h1> <br>
+
+</div>
+<main class="actions">
+
+
+    <section class="results" >
+
+        <div class="result-card">
+            <h4><!---Nombre usuario-----></h4>
+            <b>Identificación: </b><!-----ID usuario---><br>
+            <b>Email: </b><!-----email---><br>
+            <b>Teléfono: </b><!-----telefono---><br>
+            <b>Residencia: </b><!-----residencia---><br>
+        </div>
+
+    </section>
+    <div class="card">
+
+        <h3>Habilidades</h3>
+
+        <table class="table">
+
+            <thead>
+            <tr>
+                <th>Característica</th>
+                <th>Nivel</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <!-- Si no hay datos -->
+            <tr th:if="${#lists.isEmpty(habilidades)}">
+                <td colspan="2">No hay habilidades registradas</td>
+            </tr>
+
+            <!-- Datos dinámicos -->
+            <tr th:each="h : ${habilidades}">
+                <td th:text="${h.nombre}"></td>
+                <td th:text="${h.nivel}"></td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <a class="btn btn-outline-secondary btn-sm" th:href="@{/Empresa/Puestos/ver}">Volver</a>
+</main>
+
+<footer>
+    <div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+</footer>
 </body>
 </html>
