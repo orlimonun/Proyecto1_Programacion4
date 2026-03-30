@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Registro Empresa')}"></head>
+<body>
+<div th:replace="~{fragmentsEmpresa/navbar :: navbar}"></div>
+
+<div class="page-header">
+    <h1>Publicar puesto</h1>
+
+</div>
+<main class="container">
+
+    <section class="card">
+
+
+        <form th:action="@{/Empresa/PublicarPuesto}" method="post" class="form-layout">
+
+            <div class="field">
+                <label for="descripcionGen">Descripción general</label>
+                <textarea id="descripcionGen" name="descripcionGen"></textarea>
+            </div>
+
+            <div class="field">
+                <label for="caracteristica">Característica deseada</label>
+                <input type="text" id="caracteristica" name="caracteristica" placeholder="Full stack developer" required>
+            </div>
+
+            <div class="field">
+                <label for="nivel">Nivel deseado</label>
+
+                <select id="nivel" name="nivel" required>
+                    <option value="" selected disabled>Seleccione un nivel</option>
+
+                    <option th:each="n : ${#numbers.sequence(1,5)}"
+                            th:value="${n}"
+                            th:text="${n}">
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="field">
+                <label for="salario">Salario Ofrecido</label>
+                <input type="text" id="salario" name="salario" placeholder="xxx.xxx" pattern="[0-9]+" required>
+            </div>
+
+            <div class="field">
+                <label>Tipo de publicación</label>
+
+                <div class="radio-group">
+
+                    <label>
+                        <input type="radio" name="tipo" value="PUBLICO" required>
+                        Público
+                    </label>
+
+                    <label>
+                        <input type="radio" name="tipo" value="PRIVADO">
+                        Privado
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Registrar</button>
+                <a th:href="@{/Empresa}" class="btn btn-secondary">Cancelar</a>
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+<div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+
+</body>

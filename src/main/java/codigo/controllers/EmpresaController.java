@@ -29,5 +29,9 @@ public class EmpresaController {
         return "Empresa/VerDetalleCandidato";
     }
 
-
+    @GetMapping("/Empresa/Publicar")
+    public String publicarPuesto(Model model) {
+        model.addAttribute("title", "Empresa - Publicar Puesto");
+        return "Empresa/PublicarPuesto";
+    }
 }
