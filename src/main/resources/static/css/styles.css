@@ -227,17 +227,19 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    padding: 0.8rem 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 
-.green-card .btn {
-    width: 100%;
-    margin-top: 0.8rem;
-}
 .caracteristicas{
     background: whitesmoke;
     border-radius: 12px;
     padding: 1rem;
+
+    max-height: 250px;
+    overflow-y: auto;
 }
 /*-------------------------------------------------------caracteristicas---------------------*/
 
@@ -247,54 +249,22 @@ main {
     gap: 1.5rem;
     margin-top: 1rem;
 }
+.form-grid-carac {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
 
-
-.green-card {
-    background: #cce3d4;
-    border: 1px solid #cce3d4;
-    border-radius: 12px;
-    padding: 1rem;
+.full-width-carac {
+    grid-column: span 2;
 }
 
 
-.ruta {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 0.8rem;
+.sub-item:hover {
+    background: #f3f4f6;
+    border-radius: 6px;
 }
 
-
-.subtitulo {
-    font-size: 0.85rem;
-    color: #6b7280;
-    margin-bottom: 0.5rem;
-}
-
-
-.sub-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-}
-
-
-.sub-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-.green-card .btn {
-    width: 100%;
-    margin-top: 0.8rem;
-}
-.caracteristicas{
-    background: whitesmoke;
-    border-radius: 12px;
-    padding: 1rem;
-}
 /*/////////////////////////////////////////////*/
 .card {
     background: white;
@@ -429,6 +399,16 @@ main {
     color: white;
 }
 
+.btn-outline-primary {
+    background-color: transparent;
+    color: #1d4ed8;
+    border: 2px solid #1d4ed8;
+}
+
+.btn-outline-primary:hover {
+    background-color: #1d4ed8;
+    color: white;
+}
 .radio-group {
     display: flex;
     gap: 1rem;

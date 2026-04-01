@@ -30,6 +30,7 @@ public class AdministradorController {
         model.addAttribute("title", "Admin - Características");
         return "Admin/Caracteristicas";
     }
+
 }
 /*
 import codigo.services.AdministradorService;

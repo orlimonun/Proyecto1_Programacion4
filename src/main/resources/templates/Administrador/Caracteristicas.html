@@ -18,19 +18,26 @@
 
             <div class="ruta">
 
+                <div class="ruta-btn">
+                    <a class="btn btn-outline-secondary" th:href="@{/admin/habilidades}"><b>Raíces</b></a>
+                </div>
+
                 <span th:each="r, iter : ${ruta}">
-
-                    <span class="badge" th:text="${r.nombre}"></span>
-
-                    <span th:if="${!iter.last}">/</span>
-
+                    <span>/</span>
+                    <a class="btn btn-outline-primary" th:text="${r.nombre}" th:href="@{/admin/habilidades/{id}(id=${r.id})}">${ruta}</a>
                 </span>
 
             </div>
 
             <p class="subtitulo">
-                Subcategorías de:
-                <strong ></strong><!------Agregar nombre de categorías--->
+
+                <span th:if="${actual == null}">
+                    Categorías: <b>raíces</b>
+                </span>
+                <span th:if="${actual != null}">Subcategorías de:
+                    <strong th:text="${actual.nombre}"></strong>
+                </span>
+
             </p>
 
             <div class="sub-list">
@@ -40,12 +47,10 @@
 
                         <span th:text="${sub.nombre}"></span>
 
-                        <a class="btn btn-primary btn-sm"
-                           th:href="@{/oferente/habilidades/{id}(id=${sub.id})}">
-                            Entrar
-                        </a>
+                        <a class="btn btn-outline-primary btn-sm" th:href="@{/admin/habilidades/{id}(id=${sub.id})}"> Entrar</a>
 
                     </div>
+
                 </div>
             </div>
 
@@ -54,70 +59,29 @@
 
         <div class="green-card">
 
-            <div class="container">
+            <form th:action="@{/admin/caracteristicas/guardar}" method="post" class="form-grid-carac">
 
-                <h2>Agregar característica</h2>
-
-
-                <div class="card">
-
-                    <form th:action="@{/admin/caracteristicas/guardar}" method="post" class="form-inline">
-
-
-                        <input type="text" name="nombre" placeholder="Nueva característica" required>
-
-
-                        <select name="padreId">
-                            <option value="">(sin padre)</option>
-
-                            <option th:each="p : ${listaPadres}"
-                                    th:value="${p.id}"
-                                    th:text="${p.nombre}">
-                            </option>
-                        </select>
-
-                        <button type="submit" class="btn btn-primary">
-                            Agregar
-                        </button>
-
-                    </form>
-
+                <div class="field">
+                    <label>Característica</label>
+                    <input type="text" name="nombre" placeholder="Ej: Bases de Datos" required>
                 </div>
 
-                <div class="card">
-
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Característica</th>
-                            <th>Padre</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr th:each="c : ${caracteristicas}">
-
-                            <td th:text="${c.nombre}">Nombre</td>
-
-                            <td>
-                                <select name="padreId">
-
-                                    <option value="">(sin padre)</option>
-
-                                    <option th:each="p : ${listaPadres}"
-                                            th:value="${p.id}"
-                                            th:text="${p.nombre}"
-                                            th:selected="${c.padre != null and c.padre.id == p.id}">
-                                    </option>
-
-                                </select>
-                            </td>
-
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="field">
+                    <label>Padre</label>
+                    <select name="padreId">
+                        <option value="">(sin padre)</option>
+                        <option th:each="p : ${listaPadres}"
+                                th:value="${p.id}"
+                                th:text="${p.nombre}">
+                        </option>
+                    </select>
                 </div>
-            </div>
+
+                <button type="submit" class="btn btn-primary full-width-carac">
+                    Agregar
+                </button>
+
+            </form>
         </div>
     </div>
 
