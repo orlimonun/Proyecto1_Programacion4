@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/Administrador")
+
 public class AdministradorController {
 
     private final AdministradorService adminService;

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AutenticacionController {
-    @GetMapping("/Login")
+    @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("title", "Iniciar sesión");
         return "Autenticacion/Login";
@@ -20,18 +20,21 @@ public class AutenticacionController {
     @GetMapping("/redirect")
     public String redirect(Authentication auth) {
 
+        if (auth == null || auth.getAuthorities().isEmpty()) {
+            return "redirect:/login";
+        }
+
         String rol = auth.getAuthorities().iterator().next().getAuthority();
 
-        switch (rol) {
-            case "ROLE_ADMIN":
-                return "redirect:/Administrador/Dashboard";
-            case "ROLE_EMPRESA":
-                return "redirect:/Empresa/Dashboard";
-            case "ROLE_OFERENTE":
-                return "redirect:/Oferente/Dashboard";
-            default:
-                return "redirect:/";
+        if ("ROLE_ADMIN".equals(rol)) {
+            return "redirect:/Administrador/Dashboard";
+        } else if ("ROLE_EMPRESA".equals(rol)) {
+            return "redirect:/Empresa/Dashboard";
+        } else if ("ROLE_OFERENTE".equals(rol)) {
+            return "redirect:/Oferente/Dashboard";
         }
+
+        return "redirect:/";
     }
 
 }

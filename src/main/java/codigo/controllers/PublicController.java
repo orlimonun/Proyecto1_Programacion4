@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/public")
 public class PublicController {
 
     private final EmpresaService empresaService;
@@ -32,8 +31,9 @@ public class PublicController {
         return "Publico/Index";
     }
 
-    @GetMapping("/buscar")
-    public String buscar(@RequestParam(required = false) String q, Model model) {
+    @GetMapping("/BuscarPuesto")
+    public String buscarPuesto(@RequestParam(required = false) String q, Model model) {
+        model.addAttribute("title", "Buscar-Puesto");
 
         if (q != null && !q.isBlank()) {
             model.addAttribute("puestos", puestoService.searchByName(q));
@@ -41,12 +41,6 @@ public class PublicController {
             model.addAttribute("puestos", puestoService.findAll());
         }
 
-        return "Publico/BuscarPuesto";
-    }
-
-    @GetMapping("/BuscarPuesto")
-    public String buscarPuesto(Model model) {
-        model.addAttribute("title", "Buscar-Puesto");
         return "Publico/BuscarPuesto";
     }
 
@@ -74,7 +68,7 @@ public class PublicController {
 
         empresaService.registrar(request);
 
-        return "redirect:/public/Index";
+        return "redirect:/Publico/Index";
     }
 
     @PostMapping("/Oferente/Registro")
@@ -82,7 +76,7 @@ public class PublicController {
 
         oferenteService.createOferente(request);
 
-        return "redirect:/public/Index";
+        return "redirect:/Publico/Index";
     }
 
 }

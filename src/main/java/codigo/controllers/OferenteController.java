@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/Oferente")
+
 public class OferenteController {
 
     private final OferenteService servicio;

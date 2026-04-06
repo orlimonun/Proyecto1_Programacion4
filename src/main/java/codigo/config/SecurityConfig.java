@@ -22,19 +22,35 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/public/**", "/auth/**", "/", "/login").permitAll()
+                        .requestMatchers(      "/",
+                                "/Index",
+                                "/BuscarPuesto",
+                                "/Empresa/Registro",
+                                "/Oferente/Registro",
+                                "/login",
+                                "/redirect",
+                                "/Access-denied",
+                                "/Publico/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/webjars/**").permitAll()
 
                         .requestMatchers("/Administrador/**").hasRole("ADMIN")
-                        .requestMatchers("/Empresa/").hasRole("EMPRESA")
+                        .requestMatchers("/Empresa/**").hasRole("EMPRESA")
                         .requestMatchers("/Oferente/**").hasRole("OFERENTE")
 
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/Login")
-                        .defaultSuccessUrl("/redirect", true)
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", false)
                         .permitAll()
                 )
+                .exceptionHandling(e -> e
+                        .accessDeniedPage("/Access-denied")
+                )
+                .logout(logout -> logout.permitAll())
                 .build();
     }
 
