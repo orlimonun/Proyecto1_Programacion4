@@ -24,7 +24,7 @@ public class OferenteController {
         this.archivoService = archivoService;
     }
 
-    @GetMapping
+    @GetMapping("/Oferente")
     public String Oferente(Model model){
         model.addAttribute("pageTitle", "Pagina para empresa");
         return "Oferente/Dashboard";
