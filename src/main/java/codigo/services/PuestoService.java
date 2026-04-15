@@ -105,20 +105,33 @@ public class PuestoService {
 
         List<HabilidadNivel> habilidades = puestoHabilidadRepository
                 .findByPuesto(puesto)
-                .stream()
-                .map(ph -> new HabilidadNivel(
-                        ph.getHabilidad().getId(),
-                        ph.getNivelRequerido()
-                ))
+                .stream().map(ph -> {
+                    if (ph.getHabilidad() == null) return null;
+
+                    return new HabilidadNivel(
+                            ph.getHabilidad().getId(),
+                            ph.getNivelRequerido()
+                    );
+                })
+                .filter(h -> h != null)
                 .toList();
+//                .map(ph -> new HabilidadNivel(
+//                        ph.getHabilidad().getId(),
+//                        ph.getNivelRequerido()
+//                ))
+//                .toList();
+
+        String nombreEmpresa = puesto.getEmpresa() != null
+                ? puesto.getEmpresa().getNombre()
+                : "Sin empresa";
 
         return new PuestoResponse(
                 puesto.getId(),
                 puesto.getDescripcion(),
                 puesto.getSalario(),
                 puesto.isPublico(),
-                puesto.isActivo(),
-                puesto.getEmpresa().getNombre(),
+                puesto.isActivo(),nombreEmpresa,
+//                puesto.getEmpresa().getNombre(),
                 habilidades
         );
     }

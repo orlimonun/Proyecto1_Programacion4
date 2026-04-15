@@ -1,6 +1,6 @@
 package codigo.repositories;
 
-import codigo.dtos.puesto.HabilidadNivel;
+
 import codigo.models.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -21,7 +21,7 @@
 
             <div class="job-card" th:each="puesto : ${puestos}">
 
-                <h3 th:text="${puesto.empresa}">Empresa</h3>
+                <h3 th:text="${puesto.empresaNombre}">Empresa</h3>
 
                 <p th:text="${puesto.descripcion}">Descripción</p>
 
@@ -32,16 +32,16 @@
                 <button class="btn btn-primary btn-sm">Ver detalle</button>
 
                 <div class="job-detail">
-                    <strong th:text="${puesto.titulo}">Título</strong>
+                    <strong th:text="${puesto.descripcion}">Título</strong>
 
-                    <ul th:if="${puesto.caracteristicas != null and !#lists.isEmpty(puesto.caracteristicas)}">
-                        <li th:each="c : ${puesto.caracteristicas}">
-                            <span th:text="${c.nombre}">Skill</span>
+                    <ul th:if="${puesto.habilidades != null and !#lists.isEmpty(puesto.habilidades)}">
+                        <li th:each="c : ${puesto.habilidades}">
+                            <span th:text="${c.habilidadId}">Skill</span>
                             (<span th:text="${c.nivel}">nivel</span>)
                         </li>
                     </ul>
 
-                    <p th:if="${puesto.caracteristicas == null or #lists.isEmpty(puesto.caracteristicas)}">
+                    <p th:if="${puesto.habilidades() == null or #lists.isEmpty(puesto.habilidades())}">
                         Sin características registradas
                     </p>
 
