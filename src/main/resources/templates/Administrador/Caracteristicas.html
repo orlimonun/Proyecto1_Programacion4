@@ -1,10 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentsPublic/head :: head('Admin - Características')}"></head>
 <body>
+<div th:replace="~{fragmentsAdmin/navbar :: navbar}"></div>
 
+<div class="page-header">
+    <h1>Características</h1>
+
+</div>
+<main class="container">
+
+    <div class="carac-layout">
+
+        <div class="green-card">
+
+            <p><strong>Ruta:</strong></p>
+
+            <div class="ruta">
+
+                <div class="ruta-btn">
+                    <a class="btn btn-outline-secondary" th:href="@{/admin/habilidades}"><b>Raíces</b></a>
+                </div>
+
+                <span th:each="r, iter : ${ruta}">
+                    <span>/</span>
+                    <a class="btn btn-outline-primary" th:text="${r.nombre}" th:href="@{/admin/habilidades/{id}(id=${r.id})}">${ruta}</a>
+                </span>
+
+            </div>
+
+            <p class="subtitulo">
+
+                <span th:if="${actual == null}">
+                    Categorías: <b>raíces</b>
+                </span>
+                <span th:if="${actual != null}">Subcategorías de:
+                    <strong th:text="${actual.nombre}"></strong>
+                </span>
+
+            </p>
+
+            <div class="sub-list">
+                <div class="caracteristicas">
+                    <div class="sub-item"
+                         th:each="sub : ${subcategorias}">
+
+                        <span th:text="${sub.nombre}"></span>
+
+                        <a class="btn btn-outline-primary btn-sm" th:href="@{/admin/habilidades/{id}(id=${sub.id})}"> Entrar</a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="green-card">
+
+            <form th:action="@{/admin/caracteristicas/guardar}" method="post" class="form-grid-carac">
+
+                <div class="field">
+                    <label>Característica</label>
+                    <input type="text" name="nombre" placeholder="Ej: Bases de Datos" required>
+                </div>
+
+                <div class="field">
+                    <label>Padre</label>
+                    <select name="padreId">
+                        <option value="">(sin padre)</option>
+                        <option th:each="p : ${listaPadres}"
+                                th:value="${p.id}"
+                                th:text="${p.nombre}">
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary full-width-carac">
+                    Agregar
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <div th:replace="~{fragmentsPublic/footer :: footer}"></div>
+</footer>
 </body>
 </html>
