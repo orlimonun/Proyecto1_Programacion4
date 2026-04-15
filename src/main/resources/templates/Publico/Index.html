@@ -41,7 +41,7 @@
                         </li>
                     </ul>
 
-                    <p th:if="${puesto.habilidades() == null or #lists.isEmpty(puesto.habilidades())}">
+                    <p th:if="${puesto.habilidades == null or #lists.isEmpty(puesto.habilidades)}">
                         Sin características registradas
                     </p>
 

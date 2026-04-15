@@ -100,7 +100,7 @@ public class AdministradorService {
 
         return new AdministradorResponse(administrador.getId(), administrador.getEmail(), administrador.getPassword(),administrador.isAprobado());
     }
-    //Implementar
+
     public void aprobarEmpresa(Long id){
 
         log.info("Approving empresa with id {}", id);

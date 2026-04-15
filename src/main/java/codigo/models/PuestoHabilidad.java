@@ -19,7 +19,7 @@ public class PuestoHabilidad {
     @JoinColumn(name = "habilidad_id")
     private Habilidad habilidad;
 
-    @Column(nullable = false)
+    @Column(name = "nivel_requerido")
     @Size(min = 1 ,max = 5)
     private int nivelRequerido;
 

@@ -23,7 +23,7 @@ public class HomeController {
     public String index(Model model) {
 
         // últimos 5 puestos públicos
-        model.addAttribute("puestos", puestoService.ultimos5Publicos());
+       model.addAttribute("puestos", puestoService.ultimos5Publicos());
 
         return "Publico/Index";
     }

@@ -12,7 +12,7 @@ public interface IPuestoRepository  extends JpaRepository<Puesto, Long> {
 
     List<Puesto> findByActivoTrue();
 
-    Optional<Puesto> findByActivoTrueAndDescripcionContainingIgnoreCase(String nombre);
+    List<Puesto> findByActivoTrueAndDescripcionContainingIgnoreCase(String nombre);
 
     List<Puesto> findByEmpresaId(Long empresaId);
 
