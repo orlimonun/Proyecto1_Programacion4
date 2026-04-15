@@ -46,6 +46,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .usernameParameter("email")
                         .defaultSuccessUrl("/", false)
+                        .defaultSuccessUrl("/redirect", true)
                         .permitAll()
                 )
                 .exceptionHandling(e -> e

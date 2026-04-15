@@ -13,7 +13,7 @@ public class Aplicacion {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        System.out.println(new BCryptPasswordEncoder().encode("admin123*"));
+        System.out.println(new BCryptPasswordEncoder().encode("oferente123*"));
         SpringApplication.run(Aplicacion.class, args);
     }
 }
